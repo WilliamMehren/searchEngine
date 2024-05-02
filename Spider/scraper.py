@@ -12,3 +12,5 @@ def scrape(url:str) -> None:
     print(soup.find(class_="article-text").text)
 
 scrape(URL)
+
+# Test
