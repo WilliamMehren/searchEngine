@@ -7,18 +7,26 @@ URL = "https://www.geeksforgeeks.org/data-structures/"
 
 # Funksjon som henter ut alt inneholdet i robots.txt filen
 def check_robots(url):
+    # Sjekker om linken inneholder noen subsider
     if url.count("/") > 2:
         # Henter linken til nettsiden uten noen subsider
         parts = url.split('/', 3)
         if len(parts) >= 4:
             robots_url = '/'.join(parts[:3]) + "/robots.txt"
 
-    # Scraper robots.txt og sender inneholdet til en txt fil
+    # Scraper robots.txt og sender inneholdet til en .txt fil
     req = rq.get(robots_url)
     robots_soup = bs(req.text, "html.parser")
+    robots_array = [text.strip() for text in robots_soup.stripped_strings]
 
-    text_file = open("Spider/current_robots.txt", "w")
-    text_file.write(robots_soup.text)
+    # Converterer url-en til og bare være subsidene
+    if url.count("/") > 2:
+        parts = url.split('/', 3)
+        if len(parts) >= 4:
+            compare_url = '/'.join(parts[:3]) + "/robots.txt"
+    
+    for i in robots_array:
+        print(i)
 
 # Funksjon som scraper siden og filtrerer ut den viktigste informasjonen
 def scrape(url:str) -> None:
