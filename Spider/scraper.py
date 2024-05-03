@@ -26,11 +26,13 @@ def check_robots(url):
             compare_url = '/'.join(parts[:3]) + "/robots.txt"
     
     for i in robots_array:
+        # TODO
+        # Oversett alle linjene sånn at de kan bli sammenlagt sammen med linken
         print(i)
 
 # Funksjon som scraper siden og filtrerer ut den viktigste informasjonen
 def scrape(url:str) -> None:
-    # todo:
+    # TODO
     # Sjekke om url-en er i "robots.txt"
     check_robots(url)
     # Ikke legge til linker i køen som allered er der
