@@ -2,7 +2,7 @@ import requests as rq,mysql.connector
 from bs4 import BeautifulSoup as bs
 
 # Websiden som skal scrapes
-URL = "https://www.geeksforgeeks.org/data-structures/"
+URL = "https://quotes.toscrape.com"
 
 # Funksjon som henter ut alt inneholdet i robots.txt filen
 def get_robots(url):
@@ -19,9 +19,20 @@ def scrape(url:str) -> None:
     req = rq.get(url)
     soup = bs(req.text, 'html.parser')
     print("URL: ", url)
-    print("Name: ", soup.find("title").text)
-    print(soup.find("h1").text)
-    print(soup.find(class_="article-text").text)
+    print("Name: ",soup.find("h1").text)
+    print("Title: ", soup.find("title").text)
+    print("Excerp: ",soup.find("p").text)
+    
+    # Henter alle linker på siden og lagrer dem i en kø
+    links = soup.find_all("a", href=True)
+
+    text_file = open("Spider/queue.txt", "w")
+    for link in links:
+        link = link["href"]
+        if link.startswith("https://"):
+            text_file.write(link + "\n")
+    text_file.close()
+
 
 scrape(URL)
 # robots = get_robots(URL)
