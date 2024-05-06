@@ -48,7 +48,7 @@ def check_robots(url):
 # Funksjon som scraper siden og filtrerer ut den viktigste informasjonen
 def scrape(url:str) -> None:
     if check_robots(url) == False:
-        # Ikke legge til linker i køen som allered er der
+        # Ikke legge til linker i køen som allered er der og legge inn en "/" bakerst i linken hvis det ikke er en der
         # Ikke legge til linker i køen som har blitt scrapet nylig (Hent scrapetid fra database)
         # Oppdater så den henter riktig informasjon som excerp
         # Oppdater så den legger inn informasjonen i databasen via API-en
@@ -70,12 +70,6 @@ def scrape(url:str) -> None:
 
         for link in links:
             link = link["href"]
-            print(link)
-
-            queue_file = open("Spider/queue.txt", "r")
-            for line in queue_file.readlines():
-                queue.append(line.strip())
-            queue_file.close()
 
             # Legger til https:// osv foran linker som ikke begynner med det
             if link.startswith("/"):
@@ -85,17 +79,27 @@ def scrape(url:str) -> None:
                     if len(parts) >= 4:
                         base_url = '/'.join(parts[:3])
                 link = base_url + link
-                if link not in queue:
-                    text_file.write(link + "\n")
+
+            # Gjør om kø filen til en array
+            queue_file = open("Spider/queue.txt", "r")
+            for line in queue_file.readlines():
+                queue.append(line.strip())
+            queue_file.close()
             
             # Sørger for at bare riktige linker blir lagt inn i køen
-            if link.startswith("https://") and link not in queue:
+            if link.startswith("https://") and link not in queue and link != url:
                 text_file.write(link + "\n")
         text_file.close()
     else:
         print("Url is in robots.txt and is not allowed to be scraped")
 
-# Websiden som skal scrapes
-URL = "https://quotes.toscrape.com"
-# URL = "https://www.geeksforgeeks.org/data-structures/"
+# Scraper den første nettsiden i køen og fjerner den fra køen
+lines = []
+with open ("Spider/queue.txt", "r+") as file:
+    URL = file.readline()
+    lines = file.readlines()
+    file.seek(0)
+    file.truncate()
+    file.writelines(lines[1:])
+file.close()
 scrape(URL)
