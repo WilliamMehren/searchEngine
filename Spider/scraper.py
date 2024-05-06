@@ -1,5 +1,6 @@
 import requests as rq,mysql.connector
 from bs4 import BeautifulSoup as bs
+from datetime import datetime
 
 # Funksjon som henter ut alt inneholdet i robots.txt filen
 def check_robots(url):
@@ -10,29 +11,35 @@ def check_robots(url):
             parsed_url = '/'.join(parts[:3])
             robots_url = '/'.join(parts[:3]) + "/robots.txt"
 
-    # Scraper robots.txt og sender inneholdet til en local txt fil
-    req = rq.get(robots_url)
-    robots_soup = bs(req.text, "html.parser")
-    # print(robots_soup)
+    response = rq.head(robots_url)
+    if response.status_code == 200:
+        print("Robots.txt found!")
+        # Scraper robots.txt og sender inneholdet til en local txt fil
+        req = rq.get(robots_url)
+        robots_soup = bs(req.text, "html.parser")
+        # print(robots_soup)
 
-    rules = []
-    for line in robots_soup.text.split('\n'):
-        if line.startswith('User-agent'):
-            agent = line.split(': ')[-1]
-            if agent == "user_agent" or agent == '*':
-                rules = []
-        rules.append(line.strip())
-    
-    # Check if the URL is allowed for the user-agent
-        for line in rules:
-            if line.startswith('Disallow'):
-                disallow_path = line.split(': ')[-1]
-                if disallow_path == '/':
-                    return False  # Disallowed for all paths
-                elif parsed_url.path.startswith(disallow_path):
-                    return True   # Disallowed for the specified path
-        return False  # Allowed if no matching Disallow rule found
-    
+        # gjør om robots.txt til en array
+        rules = []
+        for line in robots_soup.text.split('\n'):
+            if line.startswith('User-agent'):
+                agent = line.split(': ')[-1]
+                if agent == "user_agent" or agent == '*':
+                    rules = []
+            rules.append(line.strip())
+        
+        # Sjekker om url-en er tillat i robots.txt
+            for line in rules:
+                if line.startswith('Disallow'):
+                    disallow_path = line.split(': ')[-1]
+                    if disallow_path == '/':
+                        return False
+                    elif parsed_url.path.startswith(disallow_path):
+                        return True
+            return False
+    else:
+        print("No Robots.txt!")
+        return False
 
 # Funksjon som scraper siden og filtrerer ut den viktigste informasjonen
 def scrape(url:str) -> None:
@@ -40,10 +47,13 @@ def scrape(url:str) -> None:
         # Ikke legge til linker i køen som allered er der
         # Ikke legge til linker i køen som har blitt scrapet nylig (Hent scrapetid fra database)
         # Oppdater så den henter riktig informasjon som excerp
+        # Oppdater så den legger inn informasjonen i databasen via API-en
 
         req = rq.get(url)
         soup = bs(req.text, 'html.parser')
-        print("Important info from site:")
+
+        print("Important info from scrape:")
+        print("Time: ", datetime.now().strftime("%d/%m/%Y %H:%M"))
         print("URL: ", url)
         print("Name: ",soup.find("h1").text)
         print("Title: ", soup.find("title").text)
@@ -74,6 +84,6 @@ def scrape(url:str) -> None:
         print("Urls is in robots.txt and is not allowed to be scraped")
 
 # Websiden som skal scrapes
-# URL = "https://quotes.toscrape.com"
-URL = "https://www.geeksforgeeks.org/data-structures/"
+URL = "https://quotes.toscrape.com"
+# URL = "https://www.geeksforgeeks.org/data-structures/"
 scrape(URL)
