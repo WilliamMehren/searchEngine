@@ -52,6 +52,7 @@ def scrape(url:str) -> None:
         # Ikke legge til linker i køen som har blitt scrapet nylig (Hent scrapetid fra database)
         # Oppdater så den henter riktig informasjon som excerp
         # Oppdater så den legger inn informasjonen i databasen via API-en
+        # Gjøre sånn at den looper med en liten delay mellom hver scrape
 
         req = rq.get(url)
         soup = bs(req.text, 'html.parser')
