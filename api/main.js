@@ -15,7 +15,3 @@ app.get("/search",async (req,res)=>{
     let sites = await query(`SELECT * FROM browserdata.sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`)
     res.send(sites);
 });
-
-app.get("/lucky",async (req,res)=>{
-    let lucklist = []
-});
