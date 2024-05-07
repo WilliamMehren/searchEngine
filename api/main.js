@@ -15,3 +15,7 @@ app.get("/search",async (req,res)=>{
     let sites = await query(`SELECT * FROM browserdata.sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`)
     res.send(sites);
 });
+
+app.listen(5000,()=>{
+    console.log("listening on port 5000")
+})
