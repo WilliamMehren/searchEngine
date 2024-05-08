@@ -2,6 +2,15 @@ import requests as rq,mysql.connector
 from bs4 import BeautifulSoup as bs
 from datetime import datetime
 
+# TODO
+# Ikke legge til linker i køen som allerede er der og legge inn en "/" bakerst i linken hvis det ikke er en der (working on - Oliver)
+# Ikke legge til linker i køen som har blitt scrapet nylig (Hent scrapetid fra database)
+# Oppdater så den henter riktig informasjon som excerp
+# Oppdater så den legger inn informasjonen i databasen via API-en
+# Gjøre sånn at den looper med en liten delay mellom hver scrape
+# Sjekke om siden er oppe
+# Finn ut av hva som skjer hvis siden bruker react
+
 # Funksjon som henter ut alt inneholdet i robots.txt filen
 def check_robots(url):
     parsed_url = url
@@ -48,12 +57,7 @@ def check_robots(url):
 # Funksjon som scraper siden og filtrerer ut den viktigste informasjonen
 def scrape(url:str) -> None:
     if check_robots(url) == False:
-        # Ikke legge til linker i køen som allered er der og legge inn en "/" bakerst i linken hvis det ikke er en der
-        # Ikke legge til linker i køen som har blitt scrapet nylig (Hent scrapetid fra database)
-        # Oppdater så den henter riktig informasjon som excerp
-        # Oppdater så den legger inn informasjonen i databasen via API-en
-        # Gjøre sånn at den looper med en liten delay mellom hver scrape
-
+        # Scraper url-en og henter ut riktig informasjon
         req = rq.get(url)
         soup = bs(req.text, 'html.parser')
 
@@ -79,6 +83,10 @@ def scrape(url:str) -> None:
                     parts = url.split('/', 3)
                     if len(parts) >= 4:
                         base_url = '/'.join(parts[:3])
+                if link.endswith("/"):
+                    link = link
+                else:
+                    link + "/"
                 link = base_url + link
 
             # Gjør om kø filen til en array
