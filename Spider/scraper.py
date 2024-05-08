@@ -1,9 +1,9 @@
 import requests as rq,mysql.connector
 from bs4 import BeautifulSoup as bs
 from datetime import datetime
+import time
 
 # TODO
-# Ikke legge til linker i køen som allerede er der og legge inn en "/" bakerst i linken hvis det ikke er en der (working on - Oliver)
 # Ikke legge til linker i køen som har blitt scrapet nylig (Hent scrapetid fra database)
 # Oppdater så den henter riktig informasjon som excerp
 # Oppdater så den legger inn informasjonen i databasen via API-en
@@ -56,6 +56,7 @@ def check_robots(url):
 
 # Funksjon som scraper siden og filtrerer ut den viktigste informasjonen
 def scrape(url:str) -> None:
+    url = url.strip().replace("  ", " ").replace("\n", "")
     if check_robots(url) == False:
         # Scraper url-en og henter ut riktig informasjon
         req = rq.get(url)
@@ -64,10 +65,10 @@ def scrape(url:str) -> None:
         print("Important info from scrape:")
         print("Time: ", datetime.now().strftime("%d/%m/%Y %H:%M"))
         print("URL: ", url)
-        print("Name: ",soup.find("h1").text)
-        print("Title: ", soup.find("title").text)
-        print("Excerp: ",soup.find("p").text)
-        
+        print("Name:", soup.find("h1").text.strip().replace("  ", " ").replace("\n", ""))
+        print("Title:", soup.find("title").text.strip().replace("  ", " ").replace("\n", ""))
+        print("Excerpt:", soup.find("p").text.strip().replace("  ", " ").replace("\n", ""))
+
         # Henter alle linker på siden og lagrer dem i en kø
         links = soup.find_all("a", href=True)
         text_file = open("Spider/queue.txt", "a")
@@ -94,6 +95,9 @@ def scrape(url:str) -> None:
             for line in queue_file.readlines():
                 queue.append(line.strip())
             queue_file.close()
+
+            if link.endswith("/"):
+                link = link[:-1]
             
             # Sørger for at bare riktige linker blir lagt inn i køen
             if link.startswith("https://") and link not in queue and link != url:
@@ -102,13 +106,19 @@ def scrape(url:str) -> None:
     else:
         print("Url is in robots.txt and is not allowed to be scraped")
 
-# Scraper den første nettsiden i køen og fjerner den fra køen
-lines = []
-with open ("Spider/queue.txt", "r+") as file:
-    URL = file.readline()
-    lines = file.readlines()
-    file.seek(0)
-    file.truncate()
-    file.writelines(lines[1:])
-file.close()
-scrape(URL)
+def start_spider():
+    while True:
+        # Scraper den første nettsiden i køen og fjerner den fra køen
+        lines = []
+        with open ("Spider/queue.txt", "r+") as file:
+            URL = file.readline()
+            lines = file.readlines()
+            file.seek(0)
+            file.truncate()
+            file.writelines(lines[1:])
+        file.close()
+        scrape(URL)
+        time.sleep(5)
+        return
+
+start_spider()
