@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Google 2.0</title>
-  </head>
+<html lang="en">              
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <title>Google 2.0</title>
+</head>
+<body>
   <header>
     <h1>Google 2.0</h1>
   </header>
-  <body>
-    <div>
-      <form action="search_results.php" method="post">
-        <label for="search">Search for anything!</label> <br />
-        <input type="text" id="search" name="search" />
-        <input type="submit" value="Search!" />
-      </form>
-    </div>
-    Tommy Test
-    test
-  </body>
+  <div class="search-container">
+    <form action="search_results.php" method="post">
+      <input type="text" id="search" name="search" placeholder="Søk her">
+      <input type="submit" value="Google Search" class="btn">
+      <input type="submit" value="I'm Feeling Lucky" class="btn">
+    </form>
+  </div>
+</body>
 </html>
