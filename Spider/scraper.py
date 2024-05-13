@@ -1,4 +1,4 @@
-import requests as rq,mysql.connector
+import requests as rq
 from bs4 import BeautifulSoup as bs
 from datetime import datetime
 import time
@@ -7,7 +7,7 @@ import time
 # Ikke legge til linker i køen som har blitt scrapet nylig (Hent scrapetid fra database)
 # Oppdater så den henter riktig informasjon som excerp (maybe done idk?)
 # Oppdater så den legger inn informasjonen i databasen via API-en
-# Gjøre sånn at den looper med en liten delay mellom hver scrape
+# Gjøre sånn at den looper med en liten delay mellom hver scrape(maybe done also think so)
 # Sjekke om siden er oppe
 # Finn ut av hva som skjer hvis siden bruker react
 
