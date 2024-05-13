@@ -5,7 +5,7 @@ import time
 
 # TODO
 # Ikke legge til linker i køen som har blitt scrapet nylig (Hent scrapetid fra database)
-# Oppdater så den henter riktig informasjon som excerp
+# Oppdater så den henter riktig informasjon som excerp (maybe done idk?)
 # Oppdater så den legger inn informasjonen i databasen via API-en
 # Gjøre sånn at den looper med en liten delay mellom hver scrape
 # Sjekke om siden er oppe
@@ -65,9 +65,9 @@ def scrape(url:str) -> None:
         print("Important info from scrape:")
         print("Time: ", datetime.now().strftime("%d/%m/%Y %H:%M"))
         print("URL: ", url)
-        print("Name:", soup.find("h1").text.strip().replace("  ", " ").replace("\n", ""))
         print("Title:", soup.find("title").text.strip().replace("  ", " ").replace("\n", ""))
-        print("Excerpt:", soup.find("p").text.strip().replace("  ", " ").replace("\n", ""))
+        print("H1:", soup.find("h1").text.strip().replace("  ", " ").replace("\n", ""))
+        print("Excerpt:", soup.find("div").text.strip().replace("  ", " ").replace("\n", ""), "\n")
 
         # Henter alle linker på siden og lagrer dem i en kø
         links = soup.find_all("a", href=True)
@@ -106,19 +106,20 @@ def scrape(url:str) -> None:
     else:
         print("Url is in robots.txt and is not allowed to be scraped")
 
-def start_spider():
-    while True:
-        # Scraper den første nettsiden i køen og fjerner den fra køen
-        lines = []
-        with open ("Spider/queue.txt", "r+") as file:
-            URL = file.readline()
-            lines = file.readlines()
+lines = []
+while True:
+    with open ("spider/queue.txt", "r+") as file:
+        lines = file.readlines()
+        if lines:
+            # Henter første url-en i køen
+            url = lines[0].strip()
+            # Fjerner url-en som skal scrapes fra køen
             file.seek(0)
             file.truncate()
             file.writelines(lines[1:])
-        file.close()
-        scrape(URL)
-        time.sleep(5)
-        return
-
-start_spider()
+        else:
+            print("Queue is empty. Waiting for URLs...")
+    file.close()
+    # Kaller scrape functionen som skal scrape url-en
+    scrape(url)
+    time.sleep(10) # Venter 5 sek før neste scrape
