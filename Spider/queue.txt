@@ -1,1 +1,1 @@
-https://quotes.toscrape.com/
+https://quotes.toscrape.com
