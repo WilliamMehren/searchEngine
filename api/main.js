@@ -17,7 +17,8 @@ app.get("/search",async (req,res)=>{
 });
 app.get("/images",async ()=>{
     let search = req.query.search
-    let images = await query(`SELECT * from browserdata.images WHERE `)
+    let images = await query(`SELECT * from browserdata.images WHERE alt LIKE '%${search}%'`)
+    res.send(images)
 });
 app.listen(5000,()=>{
     console.log("listening on port 5000");
