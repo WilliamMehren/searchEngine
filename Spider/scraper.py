@@ -1,4 +1,4 @@
-import requests as rq,mysql.connector
+import requests as rq
 from bs4 import BeautifulSoup as bs
 from datetime import datetime
 import time
