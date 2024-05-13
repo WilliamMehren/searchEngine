@@ -106,20 +106,20 @@ def scrape(url:str) -> None:
     else:
         print("Url is in robots.txt and is not allowed to be scraped")
 
-lines = []
-while True:
-    with open ("spider/queue.txt", "r+") as file:
-        lines = file.readlines()
-        if lines:
-            # Henter første url-en i køen
-            url = lines[0].strip()
-            # Fjerner url-en som skal scrapes fra køen
-            file.seek(0)
-            file.truncate()
-            file.writelines(lines[1:])
-        else:
-            print("Queue is empty. Waiting for URLs...")
-    file.close()
-    # Kaller scrape functionen som skal scrape url-en
-    scrape(url)
-    time.sleep(10) # Venter 5 sek før neste scrape
+# lines = []
+# while True:
+#     with open ("spider/queue.txt", "r+") as file:
+#         lines = file.readlines()
+#         if lines:
+#             # Henter første url-en i køen
+#             url = lines[0].strip()
+#             # Fjerner url-en som skal scrapes fra køen
+#             file.seek(0)
+#             file.truncate()
+#             file.writelines(lines[1:])
+#         else:
+#             print("Queue is empty. Waiting for URLs...")
+#     file.close()
+#     # Kaller scrape functionen som skal scrape url-en
+#     scrape(url)
+#     time.sleep(10) # Venter 5 sek før neste scrape
