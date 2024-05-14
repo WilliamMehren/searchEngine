@@ -73,7 +73,7 @@ def scrape(url:str) -> None:
             scrape_url = url
             site_name = soup.find("h1")
             site_title = soup.find("title")
-            site_text = soup.find("div")
+            site_text = soup.text
             scrape_date_logged = datetime.now().strftime("%d/%m/%Y %H:%M")
 
             # Sjekker at informasjonen som her hentet fra siden ikke er None og formaterer det ordentlig
@@ -82,9 +82,23 @@ def scrape(url:str) -> None:
             if site_title != None:
                 site_title = soup.find("title").text.strip().replace("  ", " ").replace("\n", "")
             if site_text != None:
-                site_text = soup.find("div").text.strip().replace("  ", " ").replace("\n", "")
+                site_text = soup.text.strip().replace("  ", " ").replace("\n", "")
 
-            # Send info til databasen her
+            # Send info til databasen
+            api = "http://10.1.120.50:5000/post/site"
+            data = {
+                'url': scrape_url,
+                'name': site_name,
+                'title': site_title,
+                'text': site_text
+            }
+            response = rq.post(url=api, data=data)
+
+            if response.status_code == 200:
+                print("POST request successful!")
+                print("Response:", response.text)
+            else:
+                print("POST request failed with status code:", response.status_code)
 
             # Printer ut informasjonen til consolen
             print("Important info from scrape:")
