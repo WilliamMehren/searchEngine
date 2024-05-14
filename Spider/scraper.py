@@ -4,11 +4,11 @@ from datetime import datetime
 import time
 
 # TODO
-# Ikke legge til linker i køen som har blitt scrapet nylig (Hent scrapetid fra database)
 # Oppdater så den henter riktig informasjon som excerp (maybe done idk?)
-# Oppdater så den legger inn informasjonen i databasen via API-en
-# Sjekke om siden er oppe
 # Finn ut av hva som skjer hvis siden bruker react
+# Oppdater så den legger inn informasjonen i databasen via API-en
+# Legg inn linker i databasen
+# Ikke legge til linker i køen som har blitt scrapet nylig (Hent scrapetid fra database)
 
 # Funksjon som henter ut alt inneholdet i robots.txt filen
 def check_robots(url):
@@ -48,10 +48,10 @@ def check_robots(url):
         # Sjekker om url-en er tillat i robots.txt
         page_path = "/" + '/'.join(url.split('/', 3)[3:])
         if page_path in rules:
-            print("Page is in robots. Canceling scrape.")
+            print("Page is in robots. Canceling scrape.\n")
             return True
         elif page_path not in rules:
-            print("Page is not in robots. Begining scrape.")
+            print("Page is not in robots. Begining scrape.\n")
             return False
     else:
         print("No Robots.txt!")
@@ -60,72 +60,78 @@ def check_robots(url):
 # Funksjon som scraper siden og filtrerer ut den viktigste informasjonen
 def scrape(url:str) -> None:
     url = url.strip().replace("  ", " ").replace("\n", "")
-    if check_robots(url) == False:
-        # Scraper url-en og henter ut riktig informasjon
-        req = rq.get(url)
-        soup = bs(req.text, 'html.parser')
+    response = rq.head(url)
+    # Sjekker om den får kontakt med siden
+    if response.status_code == 200:
+        # Kaller check_robots funksjonen som sjekker om url-en er i robots
+        if check_robots(url) == False:
+            # Scraper url-en og henter ut riktig informasjon
+            req = rq.get(url)
+            soup = bs(req.text, 'html.parser')
 
-        # Henter informasjonen fra siden som har blitt scrapet
-        scrape_url = url
-        site_name = soup.find("h1")
-        site_title = soup.find("title")
-        site_text = soup.find("div")
-        scrape_date_logged = datetime.now().strftime("%d/%m/%Y %H:%M")
+            # Henter informasjonen fra siden som har blitt scrapet
+            scrape_url = url
+            site_name = soup.find("h1")
+            site_title = soup.find("title")
+            site_text = soup.find("div")
+            scrape_date_logged = datetime.now().strftime("%d/%m/%Y %H:%M")
 
-        # Sjekker at informasjonen som her hentet fra siden ikke er None og formaterer det ordentlig
-        if site_name != None:
-            site_name = soup.find("h1").text.strip().replace("  ", " ").replace("\n", "")
-        if site_title != None:
-            site_title = soup.find("title").text.strip().replace("  ", " ").replace("\n", "")
-        if site_text != None:
-            site_text = soup.find("div").text.strip().replace("  ", " ").replace("\n", "")
+            # Sjekker at informasjonen som her hentet fra siden ikke er None og formaterer det ordentlig
+            if site_name != None:
+                site_name = soup.find("h1").text.strip().replace("  ", " ").replace("\n", "")
+            if site_title != None:
+                site_title = soup.find("title").text.strip().replace("  ", " ").replace("\n", "")
+            if site_text != None:
+                site_text = soup.find("div").text.strip().replace("  ", " ").replace("\n", "")
 
-        # Send info til databasen her
+            # Send info til databasen her
 
-        # Printer ut informasjonen til consolen
-        print("Important info from scrape:")
-        print("URL: ", scrape_url)
-        print("Name:", site_name)
-        print("Title:", site_title)
-        print("Text:", site_text)
-        print("Date Logged: ", scrape_date_logged)
+            # Printer ut informasjonen til consolen
+            print("Important info from scrape:")
+            print("URL: ", scrape_url)
+            print("Name:", site_name)
+            print("Title:", site_title)
+            print("Text:", site_text)
+            print("Date Logged: ", scrape_date_logged)
 
-        # Henter alle linker på siden og lagrer dem i en kø
-        links = soup.find_all("a", href=True)
-        text_file = open("Spider/queue.txt", "a")
-        queue = []
-        for link in links:
-            link = link["href"]
+            # Henter alle linker på siden og lagrer dem i en kø
+            links = soup.find_all("a", href=True)
+            text_file = open("Spider/queue.txt", "a")
+            queue = []
+            for link in links:
+                link = link["href"]
 
-            # Legger til https:// osv foran linker som ikke begynner med det
-            if link.startswith("/"):
-                base_url = url
-                if url.count("/") > 2:
-                    parts = url.split('/', 3)
-                    if len(parts) >= 4:
-                        base_url = '/'.join(parts[:3])
+                # Legger til https:// osv foran linker som ikke begynner med det
+                if link.startswith("/"):
+                    base_url = url
+                    if url.count("/") > 2:
+                        parts = url.split('/', 3)
+                        if len(parts) >= 4:
+                            base_url = '/'.join(parts[:3])
+                    if link.endswith("/"):
+                        link = link
+                    else:
+                        link + "/"
+                    link = base_url + link
+
+                # Gjør om kø filen til en array
+                queue_file = open("Spider/queue.txt", "r")
+                for line in queue_file.readlines():
+                    queue.append(line.strip())
+                queue_file.close()
+
+                # Fjerner den siste "/"en i linken
                 if link.endswith("/"):
-                    link = link
-                else:
-                    link + "/"
-                link = base_url + link
+                    link = link[:-1]
 
-            # Gjør om kø filen til en array
-            queue_file = open("Spider/queue.txt", "r")
-            for line in queue_file.readlines():
-                queue.append(line.strip())
-            queue_file.close()
-
-            # Fjerner den siste "/"en i linken
-            if link.endswith("/"):
-                link = link[:-1]
-
-            # Sørger for at bare riktige linker blir lagt inn i køen
-            if link.startswith("https://") or link.startswith("http://") and link not in queue and link != url:
-                text_file.write(link + "\n")
-        text_file.close()
+                # Sørger for at bare riktige linker blir lagt inn i køen
+                if link.startswith("https://") or link.startswith("http://") and link not in queue and link != url:
+                    text_file.write(link + "\n")
+            text_file.close()
+        else:
+            print("Url is in robots.txt and is not allowed to be scraped")
     else:
-        print("Url is in robots.txt and is not allowed to be scraped")
+        print("Could not connect to url. Going to next in the queue")
 
 lines = []
 while True:
