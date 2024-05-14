@@ -1,0 +1,9 @@
+{
+    "themes":[
+        {"name":"rapier basic",
+        "color_primary":"#fff",
+        "color_secondary":"#f2f2f2",
+        "color_accent":"#1a0da",
+        "color_text":"black"}
+    ]
+}

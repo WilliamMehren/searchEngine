@@ -1,0 +1,16 @@
+body{
+    display: grid;
+    grid-template-areas: 
+    "top top top",
+    "side main main";
+    grid-template-rows: 64px auto;
+}
+header{
+    grid-area: top;
+}
+#sidebar{
+    grid-area: side;
+}
+#mainPage{
+    grid-area: main;
+}

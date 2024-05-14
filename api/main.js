@@ -52,12 +52,12 @@ app.get("/post/:type",async (req,res)=>{
 
 
 app.get("/search",async (req,res)=>{
-    let search = req.query.search;
+    let search = req.query.query;
     let sites = await query(`SELECT * FROM browserdata.sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`);
     res.send(sites);
 });
 app.get("/images",async ()=>{
-    let search = req.query.search
+    let search = req.query.query
     let images = await query(`SELECT * from browserdata.images WHERE alt LIKE '%${search}%'`)
     res.send(images)
 });
