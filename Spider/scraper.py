@@ -80,6 +80,8 @@ def scrape(url:str) -> None:
         if site_text != None:
             site_text = soup.find("div").text.strip().replace("  ", " ").replace("\n", "")
 
+        # Send info til databasen her
+
         # Printer ut informasjonen til consolen
         print("Important info from scrape:")
         print("URL: ", scrape_url)
