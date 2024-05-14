@@ -1,1 +1,1 @@
-https://quotes.toscrape.com
+https://www.geeksforgeeks.org/data-structures

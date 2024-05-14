@@ -46,8 +46,10 @@ def check_robots(url):
             if line.startswith('Disallow'):
                 disallow_path = line.split(': ')[-1]
                 if disallow_path == '/':
+                    print("URL is not in robots. Beginning scrape")
                     return False
-                elif parsed_url.path.startswith(disallow_path):
+                elif parsed_url.startswith(disallow_path):
+                    print("URL is in robots. Canceling scrape.")
                     return True
         return False
     else:
@@ -62,12 +64,24 @@ def scrape(url:str) -> None:
         req = rq.get(url)
         soup = bs(req.text, 'html.parser')
 
+        scrape_time = datetime.now().strftime("%d/%m/%Y %H:%M")
+        site_title = soup.find("title")
+        site_h1 = soup.find("h1")
+        site_excerpt = soup.find("div")
+
+        if site_title != None:
+            site_title.text.strip().replace("  ", " ").replace("\n", "")
+        if site_h1 != None:
+            site_h1.text.strip().replace("  ", " ").replace("\n", "")
+        if site_excerpt != None:
+            site_excerpt.text.strip().replace("  ", " ").replace("\n", ""), "\n"
+
         print("Important info from scrape:")
-        print("Time: ", datetime.now().strftime("%d/%m/%Y %H:%M"))
+        print("Time: ", scrape_time)
         print("URL: ", url)
-        print("Title:", soup.find("title").text.strip().replace("  ", " ").replace("\n", ""))
-        print("H1:", soup.find("h1").text.strip().replace("  ", " ").replace("\n", ""))
-        print("Excerpt:", soup.find("div").text.strip().replace("  ", " ").replace("\n", ""), "\n")
+        print("Title:", site_title)
+        print("H1:", site_h1)
+        print("Excerpt:", site_excerpt)
 
         # Henter alle linker på siden og lagrer dem i en kø
         links = soup.find_all("a", href=True)
@@ -122,4 +136,4 @@ while True:
     file.close()
     # Kaller scrape functionen som skal scrape url-en
     scrape(url)
-    time.sleep(10) # Venter 5 sek før neste scrape
+    time.sleep(5) # Venter 5 sek før neste scrape
