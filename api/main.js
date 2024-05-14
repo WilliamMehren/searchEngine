@@ -10,6 +10,47 @@ const conn = mysql.createConnection({
 })
 const query = util.promisify(conn.query).bind(conn);
 
+app.get("/post/:type",async (req,res)=>{
+    let type = req.params.type
+    let url = req.query.url
+    switch (type){
+        case "site":
+            let name = req.query.name
+            let title = req.query.title
+            let text = req.query.text
+            let dbres = await query(`INSERT INTO browserdata.sites (url,name,title,text) VALUES ("${url}","${name}","${title}","${text}");`)
+            res.send(dbres)
+        case "image":
+            //du må ta med siden bildet kommer fra
+            let imageParentUrl = req.query.parentUrl
+            let imageParentSite = await query(`SELECT * FROM browserdata.sites WHERE url ="${imageParentUrl}"`)
+            if (imageParentSite < 0){
+                res.send("siden bildet tilhører kan ikke bli funnet")
+            } else {
+                let site_id = imageParentSite[0].site_id
+                let alt = req.query.alt
+                let dbres = await query(`INSERT INTO browserdata.images (site_id,url,alt) VALUES ("${site_id}","${url}","${alt}");`)
+                res.send(dbres)
+        }
+        case "video":
+            //du må ta med siden bildet kommer fra
+            let videoParentUrl = req.query.parentUrl
+            let videoParentSite = await query(`SELECT * FROM browserdata.sites WHERE url ="${videoParentUrl}"`)
+            if (videoParentSite < 0){
+                res.send("siden bildet tilhører kan ikke bli funnet")
+            } else {
+                let site_id = videoParentSite[0].site_id
+                let dbres = await query(`INSERT INTO browserdata.images (site_id,url) VALUES ("${site_id}","${url}");`)
+                res.send(dbres)
+            }
+        case "link":
+            //gidder ikke å lage denne akkurat nå
+    }
+    
+
+});
+
+
 app.get("/search",async (req,res)=>{
     let search = req.query.search;
     let sites = await query(`SELECT * FROM browserdata.sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`);
