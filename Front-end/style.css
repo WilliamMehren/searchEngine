@@ -30,7 +30,6 @@ button.header{
   background-color: var(--acccent-color);
   color: #fff;
   margin-left: 20px;
-  border: none;
   padding: 12px 20px;
   border-radius: 5px;
   font-size: 16px;
@@ -72,16 +71,27 @@ input[type="submit"].btn:hover {
   margin: 20px;
 }
 button.pageNum{
+  
   background-color: var(--acccent-color);
   color: #fff;
   height: 50px;
   width: 50px;
-  border: none;
+  
   border-radius: 50%;
   font-size: 1.3rem;
   cursor: pointer;
   margin: auto;
   
+}
+button{
+  transition: 0.1s;
+  border: 2px solid white;
+}
+button:hover{
+  transition: 0.1s;
+  background-color: white;
+  color: var(--acccent-color);
+  border-color: var(--acccent-color);
 }
 #pageSwitch{
   display: grid;
