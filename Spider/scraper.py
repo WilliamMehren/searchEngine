@@ -30,26 +30,26 @@ def check_robots(url):
         # Scraper robots.txt og sender inneholdet til en local txt fil
         req = rq.get(robots_url)
         robots_soup = bs(req.text, "html.parser")
-        # print(robots_soup)
 
         # gjør om robots.txt til en array
         rules = []
         for line in robots_soup.text.split('\n'):
+            print(line)
             if line.startswith('User-agent'):
                 agent = line.split(': ')[-1]
                 if agent == "user_agent" or agent == '*':
                     rules = []
             rules.append(line.strip())
-
+        
         # Sjekker om url-en er tillat i robots.txt
         for line in rules:
             if line.startswith('Disallow'):
                 disallow_path = line.split(': ')[-1]
                 if disallow_path == '/':
-                    print("URL is not in robots. Beginning scrape")
+                    print("URL is not in robots. Beginning scrape. \n")
                     return False
                 elif parsed_url.startswith(disallow_path):
-                    print("URL is in robots. Canceling scrape.")
+                    print("URL is in robots. Canceling scrape. \n")
                     return True
         return False
     else:
@@ -64,24 +64,27 @@ def scrape(url:str) -> None:
         req = rq.get(url)
         soup = bs(req.text, 'html.parser')
 
-        scrape_time = datetime.now().strftime("%d/%m/%Y %H:%M")
+        # Henter informasjonen fra siden som har blitt scrapet
+        scrape_url = url
+        site_name = soup.find("h1")
         site_title = soup.find("title")
-        site_h1 = soup.find("h1")
-        site_excerpt = soup.find("div")
+        site_text = soup.find("div")
+        scrape_date_logged = datetime.now().strftime("%d/%m/%Y %H:%M")
 
+        # Sjekker at informasjonen som her hentet fra siden ikke er None og formaterer det ordentlig
+        if site_name != None:
+            site_name = soup.find("h1").text.strip().replace("  ", " ").replace("\n", "")
         if site_title != None:
-            site_title.text.strip().replace("  ", " ").replace("\n", "")
-        if site_h1 != None:
-            site_h1.text.strip().replace("  ", " ").replace("\n", "")
-        if site_excerpt != None:
-            site_excerpt.text.strip().replace("  ", " ").replace("\n", ""), "\n"
+            site_title = soup.find("title").text.strip().replace("  ", " ").replace("\n", "")
+        if site_text != None:
+            site_text = soup.find("div").text.strip().replace("  ", " ").replace("\n", "")
 
         print("Important info from scrape:")
-        print("Time: ", scrape_time)
-        print("URL: ", url)
+        print("URL: ", scrape_url)
+        print("Name:", site_name)
         print("Title:", site_title)
-        print("H1:", site_h1)
-        print("Excerpt:", site_excerpt)
+        print("Text:", site_text)
+        print("Date Logged: ", scrape_date_logged)
 
         # Henter alle linker på siden og lagrer dem i en kø
         links = soup.find_all("a", href=True)
