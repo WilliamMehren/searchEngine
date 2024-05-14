@@ -7,21 +7,19 @@ import time
 # Ikke legge til linker i køen som har blitt scrapet nylig (Hent scrapetid fra database)
 # Oppdater så den henter riktig informasjon som excerp (maybe done idk?)
 # Oppdater så den legger inn informasjonen i databasen via API-en
-# Gjøre sånn at den looper med en liten delay mellom hver scrape(maybe done also think so)
 # Sjekke om siden er oppe
 # Finn ut av hva som skjer hvis siden bruker react
 
 # Funksjon som henter ut alt inneholdet i robots.txt filen
 def check_robots(url):
-    parsed_url = url
     robots_url = url + "/robots.txt"
 
     # Sjekker om linken inneholder noen subsider og fjerner alle subsider + legger til robots.txt
     if url.count("/") > 2:
         parts = url.split('/', 3)
         if len(parts) >= 4:
-            parsed_url = '/'.join(parts[:3])
             robots_url = '/'.join(parts[:3]) + "/robots.txt"
+        # print(robots_url)
 
     # Sjekker om Robots.txt exisrerer
     response = rq.head(robots_url)
@@ -31,27 +29,30 @@ def check_robots(url):
         req = rq.get(robots_url)
         robots_soup = bs(req.text, "html.parser")
 
-        # gjør om robots.txt til en array
+        # gjør om robots.txt til en array over alle sidene som ikke skal bli scrapet
         rules = []
+
+        # Henter ut alle reglene i robots og lagrer dem i en array/liste
+        is_user_agent_star = False
         for line in robots_soup.text.split('\n'):
-            print(line)
             if line.startswith('User-agent'):
-                agent = line.split(': ')[-1]
-                if agent == "user_agent" or agent == '*':
-                    rules = []
-            rules.append(line.strip())
-        
+                user_agent = line.split(': ')[-1]
+                if user_agent.strip() == '*' or user_agent.strip() == 'user_agent':
+                    is_user_agent_star = True
+                else:
+                    is_user_agent_star = False
+            elif is_user_agent_star and line.startswith('Disallow'):
+                disallowed_path = line.split(': ')[-1]
+                rules.append(disallowed_path.strip())
+
         # Sjekker om url-en er tillat i robots.txt
-        for line in rules:
-            if line.startswith('Disallow'):
-                disallow_path = line.split(': ')[-1]
-                if disallow_path == '/':
-                    print("URL is not in robots. Beginning scrape. \n")
-                    return False
-                elif parsed_url.startswith(disallow_path):
-                    print("URL is in robots. Canceling scrape. \n")
-                    return True
-        return False
+        page_path = "/" + '/'.join(url.split('/', 3)[3:])
+        if page_path in rules:
+            print("Page is in robots. Canceling scrape.")
+            return True
+        elif page_path not in rules:
+            print("Page is not in robots. Begining scrape.")
+            return False
     else:
         print("No Robots.txt!")
         return False
@@ -79,6 +80,7 @@ def scrape(url:str) -> None:
         if site_text != None:
             site_text = soup.find("div").text.strip().replace("  ", " ").replace("\n", "")
 
+        # Printer ut informasjonen til consolen
         print("Important info from scrape:")
         print("URL: ", scrape_url)
         print("Name:", site_name)
@@ -90,7 +92,6 @@ def scrape(url:str) -> None:
         links = soup.find_all("a", href=True)
         text_file = open("Spider/queue.txt", "a")
         queue = []
-
         for link in links:
             link = link["href"]
 
@@ -113,11 +114,12 @@ def scrape(url:str) -> None:
                 queue.append(line.strip())
             queue_file.close()
 
+            # Fjerner den siste "/"en i linken
             if link.endswith("/"):
                 link = link[:-1]
-            
+
             # Sørger for at bare riktige linker blir lagt inn i køen
-            if link.startswith("https://") and link not in queue and link != url:
+            if link.startswith("https://") or link.startswith("http://") and link not in queue and link != url:
                 text_file.write(link + "\n")
         text_file.close()
     else:
@@ -134,9 +136,9 @@ while True:
             file.seek(0)
             file.truncate()
             file.writelines(lines[1:])
+            # Kaller scrape functionen som skal scrape url-en
+            scrape(url)
         else:
             print("Queue is empty. Waiting for URLs...")
     file.close()
-    # Kaller scrape functionen som skal scrape url-en
-    scrape(url)
     time.sleep(5) # Venter 5 sek før neste scrape
