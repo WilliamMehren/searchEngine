@@ -93,6 +93,7 @@ def scrape(url:str) -> None:
                 'text': site_text
             }
             response = rq.post(url=api, data=data)
+            # response = rq.post("http://10.1.120.50:5000/post/site?url=test2&name=test2&title=test2&text=test2")
 
             if response.status_code == 200:
                 print("POST request successful!")
