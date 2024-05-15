@@ -1,9 +1,14 @@
 {
     "themes":[
-        {"name":"rapier basic",
+        {"name":"Rapier Basic",
         "color_primary":"#fff",
         "color_secondary":"#f2f2f2",
-        "color_accent":"#1a0da",
+        "color_accent":"#1a0dab",
+        "color_text":"black"},
+        {"name":"Rapier Kirby",
+        "color_primary":"#ff8aed",
+        "color_secondary":"#e302a7",
+        "color_accent":"#ff0055",
         "color_text":"black"}
     ]
 }

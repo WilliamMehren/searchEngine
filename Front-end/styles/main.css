@@ -13,11 +13,11 @@ body, h1, form, input {
 }
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
 }
 
 header {
-  background-color: var(--primary-color);
+  background-color: var(--secondary-color);
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -42,7 +42,7 @@ h1 {
   color: var(--acccent-color);
   text-align: center;
 }
-button.header{
+button{
   background-color: var(--acccent-color);
   color: var(--primary-color);
   margin-right: 20px;
@@ -50,6 +50,11 @@ button.header{
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+}
+button.full{
+  width: 100%;
+  height: 75px;
+  font-size: 1.5rem;
 }
 .search-container {
   margin: 250px auto;
@@ -102,6 +107,7 @@ button.pageNum{
 button{
   transition: 0.1s;
   border: 2px solid var(--primary-color);
+  background-color: var(--acccent-color);
 }
 button:hover{
   transition: 0.1s;
@@ -114,4 +120,15 @@ button:hover{
   grid-template-columns: auto auto auto auto auto;
   width: 40%;
   margin: auto;
+}
+.preTheme{
+
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border-color: var(--acccent-color);
+}
+.preTheme:hover{
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border-color: var(--acccent-color);
 }
