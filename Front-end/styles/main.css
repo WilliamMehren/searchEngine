@@ -122,10 +122,15 @@ button:hover{
   margin: auto;
 }
 .preTheme{
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: var(--primary-color);
   color: var(--text-color);
   border-color: var(--acccent-color);
+}
+.preTheme > div{
+  border-bottom: solid var(--acccent-color) 2px;
 }
 .preTheme:hover{
   background-color: var(--primary-color);

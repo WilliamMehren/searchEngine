@@ -9,6 +9,11 @@
         "color_primary":"#ff8aed",
         "color_secondary":"#e302a7",
         "color_accent":"#ff0055",
-        "color_text":"black"}
+        "color_text":"black"},
+        {"name":"Rapier Sigma",
+        "color_primary":"#000000",
+        "color_secondary":"#1c1c0e",
+        "color_accent":"#f5ef42",
+        "color_text":"white"}
     ]
 }
