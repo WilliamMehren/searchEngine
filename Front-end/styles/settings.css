@@ -1,16 +1,36 @@
 body{
     display: grid;
     grid-template-areas: 
-    "top top top",
-    "side main main";
+    "top top"
+    "side main";
     grid-template-rows: 64px auto;
+    grid-template-columns: 20% auto;
+    
 }
 header{
     grid-area: top;
+}
+h1{
+    text-align: left;
 }
 #sidebar{
     grid-area: side;
 }
 #mainPage{
     grid-area: main;
+}
+#themes{
+    display: grid;
+    grid-template-columns: repeat(6,210px);
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    
+}
+.preTheme{
+    width: 200px;
+    padding: 0px;
+}
+.preTheme > h3{
+    text-align: center;
 }
