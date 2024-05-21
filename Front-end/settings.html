@@ -9,15 +9,24 @@
 </head>
 <body>
     <header>
-
+        <div class="topbar">
+            <a href="Index.html"><img src="assets/home.svg" alt="user" width="48" height="48"></svg></a>
+            <h1 class="header">Rapier</h1>
+            <img src="assets/user.svg" alt="user" width="48" height="48">
+        </div>
     </header>
-    <div id="sideabr">
-        <button class="full">Themes</button>
+    <div id="sidebar">
+        <button class="full" id="themesbtn" onclick="switchMenu('themes')" current>Themes</button>
+        <button class="full" id="privacybtn" onclick="switchMenu('privacy')" >Privacy</button>
     </div>
     <div id="mainPage">
         <div id="themes">
+            <div id="themeHolder"></div>
         </div>
+        <div id="privacy"></div>
     </div>
+    
     <script src="scripts/settings.js"></script>
+    <script src="scripts/customize.js"></script>
 </body>
 </html>

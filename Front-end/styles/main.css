@@ -2,6 +2,7 @@
   --primary-color: #fff;
   --secondary-color:#f2f2f2;
   --acccent-color:#1a0dab;
+  --header-color:#1a0dab;
   --text-color:black;
 }
 
@@ -21,6 +22,10 @@ header {
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+path{
+  width: 48px;
+  fill: red;
+}
 .topbar{
   display: grid;
   grid-template-columns: 64px auto 64px;
@@ -39,7 +44,7 @@ footer{
 }
 h1 {
   font-size: 40px;
-  color: var(--acccent-color);
+  color: var(--header-color);
   text-align: center;
 }
 button{
@@ -109,7 +114,7 @@ button{
   border: 2px solid var(--primary-color);
   background-color: var(--acccent-color);
 }
-button:hover{
+button:hover, button[current]{
   transition: 0.1s;
   background-color: var(--primary-color);
   color: var(--acccent-color);
@@ -122,13 +127,21 @@ button:hover{
   margin: auto;
 }
 .preTheme{
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: var(--primary-color);
   color: var(--text-color);
   border-color: var(--acccent-color);
+}
+.preTheme > div{
+  border-bottom: solid var(--acccent-color) 2px;
 }
 .preTheme:hover{
   background-color: var(--primary-color);
   color: var(--text-color);
   border-color: var(--acccent-color);
+}
+.header{
+  text-align: center;
 }
