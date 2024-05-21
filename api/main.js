@@ -20,7 +20,6 @@ app.get("/post/:type",async (req,res)=>{
             let title = req.query.title
             let text = req.query.text
             dbres = await query(`INSERT INTO browserdata.sites (url,name,title,text) VALUES ("${url}","${name}","${title}","${text}");`)
-            res.send(dbres)
         case "image":
             //du må ta med siden bildet kommer fra
             let imageParentUrl = req.query.parentUrl
@@ -31,7 +30,6 @@ app.get("/post/:type",async (req,res)=>{
                 let site_id = imageParentSite[0].site_id
                 let alt = req.query.alt
                 dbres = await query(`INSERT INTO browserdata.images (site_id,url,alt) VALUES ("${site_id}","${url}","${alt}");`)
-                res.send(dbres)
         }
         case "video":
             //du må ta med siden bildet kommer fra
@@ -42,7 +40,6 @@ app.get("/post/:type",async (req,res)=>{
             } else {
                 let site_id = videoParentSite[0].site_id
                 dbres = await query(`INSERT INTO browserdata.images (site_id,url) VALUES ("${site_id}","${url}");`)
-                res.send(dbres)
             }
         case "link":
             //gidder ikke å lage denne akkurat nå 
