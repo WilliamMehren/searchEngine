@@ -94,9 +94,9 @@ def scrape(url:str) -> None:
             }
 
             full_url = api + '?' + '&'.join([f"{key}={value}" for key, value in data.items()])
-            print("Full URL:", full_url)
+            # print("Full URL:", full_url)
 
-            response = rq.get(url=api, params=data)
+            response = rq.get(url=full_url)
             # http://10.1.120.50:5000/post/site?url=test&name=test&title=test&text=test
 
             if response.status_code == 200:
@@ -111,7 +111,7 @@ def scrape(url:str) -> None:
             print("URL: ", url)
             print("Name:", site_name)
             print("Title:", site_title)
-            print("Text:", site_text)
+            # print("Text:", site_text)
             print("Date Logged: ", scrape_date_logged)
 
             # Henter alle linker på siden og lagrer dem i en kø
@@ -143,7 +143,7 @@ def scrape(url:str) -> None:
                 parsed_url = urlparse(link)
                 link = parsed_url.scheme + "://" + parsed_url.netloc + parsed_url.path
                 
-                # # Fjerner den siste "/"en i linken
+                # Fjerner den siste "/"en i linken
                 # if link.endswith("/"):
                 #     link = link[:-1]
 
@@ -172,4 +172,4 @@ while True:
         else:
             print("Queue is empty. Waiting for URLs...")
     file.close()
-    time.sleep(5) # Venter 5 sek før neste scrape
+    time.sleep(2) # Venter 5 sek før neste scrape
