@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql2")
 const util = require("util")
+const cors = require("cors")
 const app = express();
 
 const conn = mysql.createConnection({
@@ -9,6 +10,8 @@ const conn = mysql.createConnection({
     password:"Pickle123!"
 })
 const query = util.promisify(conn.query).bind(conn);
+
+app.use(cors())
 
 app.get("/post/:type",async (req,res)=>{
     let type = req.params.type
