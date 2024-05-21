@@ -18,8 +18,10 @@ h1{
 }
 #mainPage{
     grid-area: main;
+    height: 100%;
+    border-left: 2px solid var(--acccent-color);
 }
-#themes{
+#themeHolder{
     display: grid;
     grid-template-columns: repeat(6,210px);
     width: 90%;

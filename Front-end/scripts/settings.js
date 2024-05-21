@@ -1,17 +1,25 @@
-
-var currentMenu
+var currentMenu ="themes"
 
 function switchMenu(menu){
-    //menu må være IDen til et html element
-    
-    currentMenu.setAttribute("hidden","")
-    currentMenu = document.getElementById(menu)
+    //avvelg tidligere knapp
+    let preBtn = document.getElementById(currentMenu+"btn");
+    if (preBtn.hasAttribute("current")){preBtn.removeAttribute("current");}
+    //skul tidligere meny
+    let preMenu = document.getElementById(currentMenu);
+    preMenu.setAttribute("hidden","")
+    //vis ny meny
+    currentMenu = menu;
+    let newMenu = document.getElementById(currentMenu);
+    if (newMenu.hasAttribute("hidden")){newMenu.removeAttribute("hidden");}
+    //velg ny knapp
+    let newBtn = document.getElementById(currentMenu+"btn");
+    newBtn.setAttribute("current","");
 }
 
 async function buildThemes(){
     let data = await fetch("./data/themes.json")
     let parsedData = await data.json()
-    let themeParent = document.getElementById("themes")
+    let themeParent = document.getElementById("themeHolder")
     //vennligst tilgi meg for denne koden
     parsedData.themes.forEach(theme => {
         let box = document.createElement("button")
@@ -20,16 +28,16 @@ async function buildThemes(){
         //container setup
         let container = document.createElement("div")
         container.setAttribute("style",`background-color:${theme["color_primary"]};`)
+        //header
+        let header = document.createElement("h1")
+        header.innerText = "This is a header"
+        header.setAttribute("style",`color:${theme["color_header"]};background-color:${theme["color_secondary"]};`)
+        container.appendChild(header)
         //text
         let text = document.createElement("p")
         text.innerText = "This is text"
         text.setAttribute("style",`color:${theme["color_text"]};`)
         container.appendChild(text)
-        //header
-        let header = document.createElement("h1")
-        header.innerText = "This is a header"
-        header.setAttribute("style",`color:${theme["color_accent"]};`)
-        container.appendChild(header)
         //knapp
         let button = document.createElement("button")
         button.innerText = "This is a button"
@@ -45,16 +53,14 @@ async function buildThemes(){
     });
 }
 function SwitchTheme(themeData){
-    var root = document.querySelector(":root")
-    var rs = getComputedStyle(root)
-    root.style.setProperty("--primary-color",themeData["color_primary"])
-    root.style.setProperty("--secondary-color",themeData["color_secondary"])
-    root.style.setProperty("--acccent-color",themeData["color_accent"])
-    root.style.setProperty("--text-color",themeData["color_text"])
-    console.log(rs.getPropertyValue("--primary-color"))
-    console.log(rs.getPropertyValue("--secondary-color"))
-    console.log(rs.getPropertyValue("--acccent-color"))
-    console.log(rs.getPropertyValue("--text-color"))
+    var root = document.querySelector(":root");
+    var rs = getComputedStyle(root);
+    root.style.setProperty("--primary-color",themeData["color_primary"]);
+    root.style.setProperty("--secondary-color",themeData["color_secondary"]);
+    root.style.setProperty("--acccent-color",themeData["color_accent"]);
+    root.style.setProperty("--header-color",themeData["color_header"]);
+    root.style.setProperty("--text-color",themeData["color_text"]);
+    localStorage.setItem("theme",JSON.stringify(themeData))
 }
 buildThemes()
 //--primary-color: #fff;
