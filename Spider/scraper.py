@@ -2,6 +2,7 @@ import requests as rq
 from bs4 import BeautifulSoup as bs
 from datetime import datetime
 import time
+from urllib.parse import urlparse
 
 # TODO
 # Oppdater så den henter riktig informasjon som excerp (maybe done idk?)
@@ -70,7 +71,6 @@ def scrape(url:str) -> None:
             soup = bs(req.text, 'html.parser')
 
             # Henter informasjonen fra siden som har blitt scrapet
-            scrape_url = url
             site_name = soup.find("h1")
             site_title = soup.find("title")
             site_text = soup.text
@@ -86,28 +86,29 @@ def scrape(url:str) -> None:
 
             # Send info til databasen
             api = "http://10.1.120.50:5000/post/site"
-            params = {
-                'url': 'test_url',
-                'name': 'test_name',
-                'title': 'test_title',
-                'text': 'test_text'
-            }
-            headers = {
-                'User-Agent': 'Custom'
+            data = {
+                'url': url,
+                'name': site_name,
+                'title': site_title,
+                'text': site_text
             }
 
-            response = rq.get(url=api, params=params)
-            # response = rq.post(f"http://10.1.120.50:5000/post/site?url=test&name=test&title=test&text=test4")
+            full_url = api + '?' + '&'.join([f"{key}={value}" for key, value in data.items()])
+            print("Full URL:", full_url)
+
+            response = rq.get(url=api, params=data)
+            # http://10.1.120.50:5000/post/site?url=test&name=test&title=test&text=test
 
             if response.status_code == 200:
                 print("POST request successful!")
                 print("Response:", response.text)
             else:
                 print("POST request failed with status code:", response.status_code)
+                print(response.text)
 
             # Printer ut informasjonen til consolen
             print("Important info from scrape:")
-            print("URL: ", scrape_url)
+            print("URL: ", url)
             print("Name:", site_name)
             print("Title:", site_title)
             print("Text:", site_text)
@@ -139,9 +140,12 @@ def scrape(url:str) -> None:
                     queue.append(line.strip())
                 queue_file.close()
 
-                # Fjerner den siste "/"en i linken
-                if link.endswith("/"):
-                    link = link[:-1]
+                parsed_url = urlparse(link)
+                link = parsed_url.scheme + "://" + parsed_url.netloc + parsed_url.path
+                
+                # # Fjerner den siste "/"en i linken
+                # if link.endswith("/"):
+                #     link = link[:-1]
 
                 # Sørger for at bare riktige linker blir lagt inn i køen
                 if link.startswith("https://") or link.startswith("http://") and link not in queue and link != url:
