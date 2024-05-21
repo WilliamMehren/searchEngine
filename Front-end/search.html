@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/search.css">
     <title>Rapier | Search</title>
 </head>
 <body>
     <header>
         <div class="topbar">
             <a href="settings.html"><img src="assets/settings.svg" alt="settings" width="48" height="48" id="settIcon"></a>
-            <h1>Rapier</h1>
-            <img src="assets/user.svg" alt="settings" width="48" height="48">
+            <a href="Index.html"><h1>Rapier</h1></a>
         </div>
         <div class="navbar">
             <button class="header">Bilder</button>
@@ -19,12 +19,15 @@
         </div>
     </header>
     <div id="searchPage">
-        <form id="searchForm">
-            <input type="text" id="search" name="search" placeholder="Søk her">
-            <input type="submit" value="Rapier Search" class="btn">
+        <form id="searchBar">
+            <input type="text" id="search" name="search" placeholder="query">
+            <input type="submit" value="Search" class="btn">
           </form>
     </div>
-    <footer>
+    <div id="searchResults">
+
+    </div>
+    <footer hidden>
         <div id="pageSwitch">
             <button class="pageNum"><</button>
             <button class="pageNum">1</button>
@@ -34,6 +37,7 @@
         </div>
         
     </footer>
+    <script src="scripts/search.js"></script>
     <script src="scripts/customize.js"></script>
 </body>
 </html>

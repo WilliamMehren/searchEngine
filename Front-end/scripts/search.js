@@ -1,10 +1,32 @@
-const searchForm = document.getElementById("searchForm");
-searchForm.addEventListener("submit",(event) =>{
-    console.log(event)
-    event.preventDefault()
-    window.location = `search.html?query=${event.target[0].value}`
-});
-async function search(){
-    console.log(await fetch("http://10.1.120.50:5000/search?query=ost"))
+
+
+
+async function search(query){
+    let res = await fetch(`http://10.1.120.50:5000/search?query=${query}`)
+    return await res.json()
 }
-search()
+const searchBar = document.getElementById("searchBar");
+searchBar.addEventListener("submit",async (event) =>{
+    event.preventDefault();
+    let results = await search(event.target[0].value);
+    let resultBar = document.getElementById("searchResults");
+    console.log(resultBar.children)
+    resultBar.innerHTML ="";
+    results.forEach(result => {
+        let container = document.createElement("a")
+        container.setAttribute("href",result.url)
+        let header = document.createElement("h2")
+        if (result.name != "undefined"){
+            header.innerText = result.name
+        } else{
+            header.innerText = result.title
+        }
+        
+        let paragraph = document.createElement("p")
+        paragraph.innerText = result.text.slice(0,100)+"..."
+        console.log(result)
+        container.appendChild(header)
+        container.appendChild(paragraph)
+        resultBar.appendChild(container)
+    });
+});

@@ -10,9 +10,6 @@ body{
 header{
     grid-area: top;
 }
-h1{
-    text-align: left;
-}
 #sidebar{
     grid-area: side;
 }
@@ -21,6 +18,9 @@ h1{
     height: 100%;
     border-left: 2px solid var(--acccent-color);
 }
+#themes{
+    margin-left: 20px;
+}
 #themeHolder{
     display: grid;
     grid-template-columns: repeat(6,210px);
@@ -28,6 +28,10 @@ h1{
     margin: auto;
     margin-top: 20px;
     
+}
+#themeMaker{
+    display: grid;
+    grid-template-columns: auto auto;
 }
 .preTheme{
     width: 200px;

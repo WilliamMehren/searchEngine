@@ -1,0 +1,26 @@
+#searchBar{
+    display: grid;
+    grid-template-columns: auto 130px;
+    justify-items: end;
+    align-items: center;
+    
+}
+#searchBar > input[type="submit"]{
+    background-color: var(--acccent-color);
+    color: var(--primary-color);
+    padding: 20px;
+    width: 90px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#searchBar > input[type="text"]{
+    width: 100%;
+    padding: 20px 5px 20px 5px;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    color:var(--text-color);
+}
+#searchResults > a{
+    text-decoration: none;
+}

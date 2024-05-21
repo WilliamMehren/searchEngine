@@ -11,8 +11,7 @@
     <header>
         <div class="topbar">
             <a href="Index.html"><img src="assets/home.svg" alt="user" width="48" height="48"></svg></a>
-            <h1 class="header">Rapier</h1>
-            <img src="assets/user.svg" alt="user" width="48" height="48">
+            <a href="Index.html"><h1>Rapier</h1></a>
         </div>
     </header>
     <div id="sidebar">
@@ -21,7 +20,26 @@
     </div>
     <div id="mainPage">
         <div id="themes">
+            <h2>Themes</h2>
             <div id="themeHolder"></div>
+            <h2>Make theme</h2>
+            <div id="themeMaker">
+                <div class="preTheme" id="colorshow">
+                    <div style="background-color:#fff;">
+                        <h1 style="color:#1a0dab;background-color:#f2f2f2;">This is a header</h1>
+                        <p style="color:black;">This is text</p>
+                        <button style="color:#fff;background-color:#1a0dab;border-color:#fff;">This is a button</button>
+                    </div>
+                </div>
+                <form id="themeForm">
+                    <label for="background">background color</label> <input type="color" name="background" id="">
+                    <label for="headerbaackground">header background color</label> <input type="color" name="headerbaackground>" id="">
+                    <label for="background color">background color</label> <input type="color" name="accentcolor>" id="">
+                    <label for="background color">background color</label> <input type="color" name="text>" id="">
+                    <label for="background color">background color</label> <input type="color" name="header>" id="">
+                </form>
+            </div>
+            
         </div>
         <div id="privacy"></div>
     </div>
