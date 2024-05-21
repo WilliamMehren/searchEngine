@@ -86,14 +86,18 @@ def scrape(url:str) -> None:
 
             # Send info til databasen
             api = "http://10.1.120.50:5000/post/site"
-            data = {
-                'url': scrape_url,
-                'name': site_name,
-                'title': site_title,
-                'text': site_text
+            params = {
+                'url': 'test_url',
+                'name': 'test_name',
+                'title': 'test_title',
+                'text': 'test_text'
             }
-            response = rq.post(url=api, data=data)
-            # response = rq.post("http://10.1.120.50:5000/post/site?url=test2&name=test2&title=test2&text=test2")
+            headers = {
+                'User-Agent': 'Custom'
+            }
+
+            response = rq.get(url=api, params=params)
+            # response = rq.post(f"http://10.1.120.50:5000/post/site?url=test&name=test&title=test&text=test4")
 
             if response.status_code == 200:
                 print("POST request successful!")
