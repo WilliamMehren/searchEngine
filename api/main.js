@@ -1,6 +1,7 @@
 const express = require("express");
 const mysql = require("mysql2")
 const util = require("util")
+const cors = require("cors")
 const app = express();
 
 const conn = mysql.createConnection({
@@ -9,6 +10,8 @@ const conn = mysql.createConnection({
     password:"Pickle123!"
 })
 const query = util.promisify(conn.query).bind(conn);
+
+app.use(cors())
 
 app.get("/post/:type",async (req,res)=>{
     let type = req.params.type
@@ -20,8 +23,8 @@ app.get("/post/:type",async (req,res)=>{
             let title = req.query.title
             let text = req.query.text
             dbres = await query(`INSERT INTO browserdata.sites (url,name,title,text) VALUES ("${url}","${name}","${title}","${text}");`)
-            res.send(dbres)
-        case "image":
+            break;
+            case "image":
             //du må ta med siden bildet kommer fra
             let imageParentUrl = req.query.parentUrl
             let imageParentSite = await query(`SELECT * FROM browserdata.sites WHERE url ="${imageParentUrl}"`)
@@ -31,8 +34,7 @@ app.get("/post/:type",async (req,res)=>{
                 let site_id = imageParentSite[0].site_id
                 let alt = req.query.alt
                 dbres = await query(`INSERT INTO browserdata.images (site_id,url,alt) VALUES ("${site_id}","${url}","${alt}");`)
-                res.send(dbres)
-        }
+            }break;
         case "video":
             //du må ta med siden bildet kommer fra
             let videoParentUrl = req.query.parentUrl
@@ -42,8 +44,8 @@ app.get("/post/:type",async (req,res)=>{
             } else {
                 let site_id = videoParentSite[0].site_id
                 dbres = await query(`INSERT INTO browserdata.images (site_id,url) VALUES ("${site_id}","${url}");`)
-                res.send(dbres)
             }
+            break;
         case "link":
             //gidder ikke å lage denne akkurat nå 
     }

@@ -7,6 +7,13 @@
         "color_header":"#1a0dab",
         "color_text":"black"},
 
+        {"name":"Rapier red",
+        "color_primary":"white",
+        "color_secondary":"red",
+        "color_accent":"red",
+        "color_header":"white",
+        "color_text":"black"},
+
         {"name":"Rapier Kirby",
         "color_primary":"#ff8aed",
         "color_secondary":"#f533ab",
@@ -26,6 +33,13 @@
         "color_secondary":"#124e87",
         "color_accent":"#27c2bd",
         "color_header":"#27c2bd",
+        "color_text":"white"},
+
+        {"name":"Half Rapier",
+        "color_primary":"black",
+        "color_secondary":"#fa6f05",
+        "color_accent":"#fa6f05",
+        "color_header":"black",
         "color_text":"white"},
 
         {"name":"Half Rapier",
