@@ -6,6 +6,7 @@ function getTheme(){
         root.style.setProperty("--primary-color",themeData["color_primary"]);
         root.style.setProperty("--secondary-color",themeData["color_secondary"]);
         root.style.setProperty("--acccent-color",themeData["color_accent"]);
+        root.style.setProperty("--header-color",themeData["color_header"]);
         root.style.setProperty("--text-color",themeData["color_text"]);
     }
     
