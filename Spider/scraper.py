@@ -116,8 +116,10 @@ def scrape(url:str) -> None:
 
             # Henter alle linker på siden og lagrer dem i en kø
             links = soup.find_all("a", href=True)
-            text_file = open("Spider/queue.txt", "a")
+            queue_text_file = open("Spider/queue.txt", "a")
+            
             queue = []
+            scraped = []
             for link in links:
                 link = link["href"]
 
@@ -140,6 +142,12 @@ def scrape(url:str) -> None:
                     queue.append(line.strip())
                 queue_file.close()
 
+                # Gjør om scraped filen til en array
+                scraped_file = open("Spider/scraped.txt", "r")
+                for line in scraped_file.readlines():
+                    scraped.append(line.strip())
+                scraped_file.close()
+
                 parsed_url = urlparse(link)
                 link = parsed_url.scheme + "://" + parsed_url.netloc + parsed_url.path
                 
@@ -148,9 +156,13 @@ def scrape(url:str) -> None:
                 #     link = link[:-1]
 
                 # Sørger for at bare riktige linker blir lagt inn i køen
-                if link.startswith("https://") or link.startswith("http://") and link not in queue and link != url:
-                    text_file.write(link + "\n")
-            text_file.close()
+                if link.startswith("https://") or link.startswith("http://") and link not in queue and link not in scraped and link != url:
+                    queue_text_file.write(link + "\n")
+            queue_text_file.close()
+
+            scraped_text_file = open("Spider/scraped.txt", "a")
+            scraped_text_file.write(url + "\n")
+            scraped_text_file.close()
         else:
             print("Url is in robots.txt and is not allowed to be scraped")
     else:
