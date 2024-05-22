@@ -14,12 +14,3 @@ https://www.geeksforgeeks.org/java-projects/
 https://www.geeksforgeeks.org/spring/
 https://www.geeksforgeeks.org/spring-boot/
 https://quotes.toscrape.com
-https://quotes.toscrape.com
-https://quotes.toscrape.com/login
-https://www.geeksforgeeks.org/data-structures/
-https://www.geeksforgeeks.org/
-https://www.geeksforgeeks.org/taking-input-in-python/
-https://www.geeksforgeeks.org/python-operators/
-https://www.geeksforgeeks.org/python-numbers/
-https://www.geeksforgeeks.org/python-string/
-https://www.geeksforgeeks.org/python-lists/
