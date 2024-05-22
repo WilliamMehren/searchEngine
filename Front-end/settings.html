@@ -10,13 +10,13 @@
 <body>
     <header>
         <div class="topbar">
-            <a href="Index.html"><img src="assets/home.svg" alt="user" width="48" height="48"></svg></a>
-            <a href="Index.html"><h1>Rapier</h1></a>
+            <a href="index.html"><img src="assets/home.svg" alt="home" width="48" height="48"></a>
+            <a href="index.html"><h1>Rapier</h1></a>
         </div>
     </header>
     <div id="sidebar">
-        <button class="full" id="themesbtn" onclick="switchMenu('themes')" current>Themes</button>
-        <button class="full" id="privacybtn" onclick="switchMenu('privacy')" >Privacy</button>
+        <button class="full" id="themesbtn" onclick="switchMenu('themes')">Themes</button>
+        <button class="full" id="privacybtn" onclick="switchMenu('privacy')">Privacy</button>
     </div>
     <div id="mainPage">
         <div id="themes">
@@ -32,21 +32,49 @@
                     </div>
                 </div>
                 <form id="themeForm">
-                    <label for="background">background color</label> <input type="color" name="background" id="">
-                    <label for="headerbaackground">header background color</label> <input type="color" name="headerbaackground>" id="">
-                    <label for="background color">background color</label> <input type="color" name="accentcolor>" id="">
-                    <label for="background color">background color</label> <input type="color" name="text>" id="">
-                    <label for="background color">background color</label> <input type="color" name="header>" id="">
+                    <label for="background">background color</label> 
+                    <input type="color" name="background" id="background">
+                    
+                    <label for="headerbackground">header background color</label> 
+                    <input type="color" name="headerbackground" id="headerbackground">
+                    
+                    <label for="accentcolor">accent color</label> 
+                    <input type="color" name="accentcolor" id="accentcolor">
+                    
+                    <label for="text">text color</label> 
+                    <input type="color" name="text" id="text">
+                    
+                    <label for="header">header text color</label> 
+                    <input type="color" name="header" id="header">
                 </form>
             </div>
-            
         </div>
         <div id="privacy">
-            <!--her skal søkehistorie gå-->
+            <h2>Search History</h2>
+            <div id="searchLogContainer"></div>
+            <button onclick="clearSearchLog()" style="float: right;">Clear Search History</button>
         </div>
     </div>
-    
+
     <script src="scripts/settings.js"></script>
     <script src="scripts/customize.js"></script>
+    <script src="scripts/history.js"></script>
+    <script>
+        function switchMenu(menu) {
+            document.getElementById('themes').style.display = menu === 'themes' ? 'block' : 'none';
+            document.getElementById('privacy').style.display = menu === 'privacy' ? 'block' : 'none';
+            if (menu === 'privacy') {
+                displaySearchLog();
+            }
+        }
+
+        function clearSearchLog() {
+            localStorage.removeItem('searchLog');
+            displaySearchLog(); // Oppdaterer visningen slik at den reflekterer den tomme søkeloggen
+        }
+        
+        // Initialize with Themes menu visible
+        switchMenu('themes');
+    </script>
 </body>
 </html>
