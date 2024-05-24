@@ -14,3 +14,7 @@ https://www.geeksforgeeks.org/java-projects/
 https://www.geeksforgeeks.org/spring/
 https://www.geeksforgeeks.org/spring-boot/
 https://quotes.toscrape.com/
+https://quotes.toscrape.com/tag/change/page/1/
+https://quotes.toscrape.com/tag/deep-thoughts/page/1/
+https://quotes.toscrape.com/tag/thinking/page/1/
+https://quotes.toscrape.com/tag/world/page/1/

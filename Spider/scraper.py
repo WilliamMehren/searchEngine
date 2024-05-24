@@ -69,7 +69,7 @@ def send_to_database(site_url, site_name, site_title, site_text):
     }
 
     # Passer på at dataen som blir sendt til databasen ikke inneholder " eller ,
-    disallowed = ['"',',']
+    disallowed = ['"',',',"'"]
     for i in data:
         for x in disallowed:
             i = i.replace(x,'')
