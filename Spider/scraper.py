@@ -67,7 +67,7 @@ def send_to_database(site_url, site_name, site_title, site_text):
         'title': site_title,
         'text': site_text
     }
-    disallowed = ['"',',']
+    disallowed = ['"',',',"'"]
     for i in data:
         for x in disallowed:
             i = i.replace(x,'')
