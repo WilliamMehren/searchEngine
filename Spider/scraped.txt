@@ -13,5 +13,24 @@ https://www.geeksforgeeks.org/java-multiple-choice-questions/
 https://www.geeksforgeeks.org/java-projects/
 https://www.geeksforgeeks.org/spring/
 https://www.geeksforgeeks.org/spring-boot/
+<<<<<<< HEAD
 https://itch.io/
 https://itch.io/
+=======
+https://quotes.toscrape.com/
+https://quotes.toscrape.com/tag/change/page/1/
+https://quotes.toscrape.com/tag/deep-thoughts/page/1/
+https://quotes.toscrape.com/tag/thinking/page/1/
+https://quotes.toscrape.com/tag/world/page/1/
+https://quotes.toscrape.com/tag/abilities/page/1/
+https://quotes.toscrape.com/tag/choices/page/1/
+https://quotes.toscrape.com/tag/books/page/1/
+https://quotes.toscrape.com/tag/classic/page/1/
+https://quotes.toscrape.com/tag/humor/page/1/
+https://quotes.toscrape.com/author/Marilyn-Monroe/
+https://quotes.toscrape.com/tag/be-yourself/page/1/
+https://quotes.toscrape.com/tag/inspirational/page/1/
+https://quotes.toscrape.com/author/Albert-Einstein/
+https://quotes.toscrape.com/tag/adulthood/page/1/
+https://quotes.toscrape.com/tag/success/page/1/
+>>>>>>> 0b329c3f902f191558fc5af0ac7f567ce5b58a5f

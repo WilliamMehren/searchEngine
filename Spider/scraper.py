@@ -67,20 +67,27 @@ def send_to_database(site_url, site_name, site_title, site_text):
         'title': site_title,
         'text': site_text
     }
-    disallowed = ['"',',',"'"]
-    for i in data:
-        for x in disallowed:
-            i = i.replace(x,'')
+
+    # Passer på at dataen som blir sendt til databasen ikke inneholder " eller ,
+    disallowed = ['"', ',', "'"]
+    # for i in data:
+    #     for x in disallowed:
+    #         i = i.replace(x, '')
+
+    for key, value in data.items():
+        cleaned_value = ''.join(char for char in value if char not in disallowed)
+        data[key] = cleaned_value
+
     # Setter sammen url-en og sender informasjonen til api-en
     full_url = api + '?' + '&'.join([f'{key}={value}' for key, value in data.items()])
     response = rq.get(url=full_url)
 
     if response.status_code == 200:
         print('POST request successful!')
-        print('Response:', response.text)
+        print('Response:', response.text, '\n')
     else:
         print('POST request failed with status code:', response.status_code)
-        print(response.text)
+        print('Response:', response.text, '\n')
 
 # Legger inn alle linkene i køen og formaterer dem ordentlig
 def format_links(soup):
