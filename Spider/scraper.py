@@ -67,7 +67,8 @@ def send_to_database(site_url, site_name, site_title, site_text):
         'title': site_title,
         'text': site_text
     }
-
+    for i in data:
+        i = i.replace('"','')
     # Setter sammen url-en og sender informasjonen til api-en
     full_url = api + '?' + '&'.join([f'{key}={value}' for key, value in data.items()])
     response = rq.get(url=full_url)
