@@ -13,3 +13,4 @@ https://www.geeksforgeeks.org/java-multiple-choice-questions/
 https://www.geeksforgeeks.org/java-projects/
 https://www.geeksforgeeks.org/spring/
 https://www.geeksforgeeks.org/spring-boot/
+https://quotes.toscrape.com/
