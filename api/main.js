@@ -24,14 +24,15 @@ app.get("/post/:type",async (req,res)=>{
             let text = req.query.text
             dbres = await query(`INSERT INTO browserdata.sites (url,name,title,text) VALUES ("${url}","${name}","${title}","${text}");`)
             break;
-            case "image":
+        case "image":
             //du må ta med siden bildet kommer fra
             let imageParentUrl = req.query.parentUrl
             let imageParentSite = await query(`SELECT * FROM browserdata.sites WHERE url ="${imageParentUrl}"`)
+            console.log(imageParentSite)
             if (imageParentSite < 0){
                 res.send("siden bildet tilhører kan ikke bli funnet")
             } else {
-                let site_id = imageParentSite[0].site_id
+                let site_id = imageParentSite[0]["site_id"]
                 let alt = req.query.alt
                 dbres = await query(`INSERT INTO browserdata.images (site_id,url,alt) VALUES ("${site_id}","${url}","${alt}");`)
             }break;

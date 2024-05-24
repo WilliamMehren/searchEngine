@@ -21,6 +21,17 @@
     background-color: var(--primary-color);
     color:var(--text-color);
 }
-#searchResults > a{
+.searchResult > a{
     text-decoration: none;
+    color: var(--text-color);
+    
+    
+    
+}
+.searchResult{
+    background-color: var(--secondary-color);
+    padding: 10px;
+    margin: 20px;
+    margin-bottom: 40px;
+    border-radius: 10px;
 }
