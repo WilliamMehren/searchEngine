@@ -62,8 +62,22 @@ function SwitchTheme(themeData){
     root.style.setProperty("--text-color",themeData["color_text"]);
     localStorage.setItem("theme",JSON.stringify(themeData))
 }
+let themeForm = document.getElementById("themeForm")
+themeForm.addEventListener("change",(event)=>{
+    let box = document.getElementById("customBox");
+    let header = document.getElementById("customHeader");
+    let text = document.getElementById("customText");
+    let btn = document.getElementById("customButton");
+    let headerColor = document.getElementById("customHeaderColor").value;
+    let headerBack = document.getElementById("customHeaderBackgroundColor").value;
+    let color = document.getElementById("customAccentColor").value;
+    let background = document.getElementById("customBackgroundColor").value;
+    let textColor = document.getElementById("CustomTextColor").value;
+
+    box.setAttribute("style",`background-color:${background};`)
+    header.setAttribute("style",`color:${headerColor};background-color:${headerBack};`)
+    text.setAttribute("style",`color:${textColor};`)
+    btn.setAttribute("style",`color:${background};background-color:${color};border-color:${background};`)
+
+});
 buildThemes()
-//--primary-color: #fff;
-//--secondary-color:#f2f2f2;
-//--acccent-color:#1a0dab;
-//--text-color:black;

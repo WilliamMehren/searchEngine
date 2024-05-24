@@ -12,7 +12,8 @@ searchBar.addEventListener("submit",async (event) =>{
     let resultBar = document.getElementById("searchResults");
     console.log(resultBar.children)
     resultBar.innerHTML ="";
-    results.forEach(result => {
+    for (let i = 0; i < results.length; i++){
+        let result = results[i]
         let container = document.createElement("a")
         container.setAttribute("href",result.url)
         let header = document.createElement("h2")
@@ -28,5 +29,8 @@ searchBar.addEventListener("submit",async (event) =>{
         container.appendChild(header)
         container.appendChild(paragraph)
         resultBar.appendChild(container)
-    });
+        if (i == 19){
+            break
+        }
+    }
 });

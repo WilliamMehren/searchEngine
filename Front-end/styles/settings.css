@@ -29,11 +29,41 @@ header{
     margin-top: 20px;
     
 }
-#themeMaker{
+#themeForm{
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-areas: "color picker" "color picker" "color picker" "color picker" "name picker" "add add";
+    grid-template-columns: 300px 240px;
+    grid-template-rows: auto auto auto auto auto auto;
+}
+input[type="color"]{
+    border: none;
+    appearance: none;
+    background-color: transparent;
+    width: 50px;
+    height: 50px;
+}
+input[type="color"]::-webkit-color-swatch{
+border-radius: 10px;
+border: 2px solid var(--text-color);
 }
 .preTheme{
     width: 200px;
     padding: 0px;
+}
+#colorshow{
+    grid-area: color;
+}
+#colorshow > div{
+    border:2px solid var(--acccent-color);
+}
+#colors{
+    grid-area: picker;
+}
+#themeNamer{
+    grid-area: name;
+    margin-top: 10px;
+    width: 85%;
+}
+#themeAdder{
+    grid-area: add;
 }
