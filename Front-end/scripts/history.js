@@ -1,6 +1,6 @@
 function saveSearchLog(query, url) {
     let searchLog = JSON.parse(localStorage.getItem('searchLog')) || [];
-    searchLog.unshift({ query: query, url: url, timestamp: new Date().toLocaleString() }); // Legger til elementet foran i arrayet
+    searchLog.unshift({ query: query, url: url, timestamp: new Date().toLocaleString() }); 
     localStorage.setItem('searchLog', JSON.stringify(searchLog));
 }
 
@@ -19,7 +19,7 @@ function displaySearchLog() {
         logEntry.className = 'logEntry';
         logEntry.innerHTML = `
             <p><strong>Query:</strong> ${entry.query}</p>
-            <p><strong>URL:</strong> <a href="${entry.url}" target="_blank">${entry.url}</a></p>
+            <p><strong>URL:</strong> <a href="${entry.url}" target="_blank">search for "${entry.query}"</a></p>
             <p><strong>Timestamp:</strong> ${entry.timestamp}</p>
         `;
         logContainer.appendChild(logEntry);
