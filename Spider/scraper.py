@@ -67,10 +67,10 @@ def send_to_database(site_url, site_name, site_title, site_text):
         'title': site_title,
         'text': site_text
     }
-
+    disallowed = ['"',',']
     for i in data:
-        i = i.replace('"','')
-
+        for x in disallowed:
+            i = i.replace(x,'')
     # Setter sammen url-en og sender informasjonen til api-en
     full_url = api + '?' + '&'.join([f'{key}={value}' for key, value in data.items()])
     response = rq.get(url=full_url)
@@ -137,7 +137,7 @@ def scrape(url:str) -> None:
 
     # Sjekker om den får kontakt med siden
     if response.status_code != 200:
-        print('Could not connect to url. Going to next in the queue \n')
+        print('Could not connect to url. Going to next in the queue\n')
         return
 
     # Kaller check_robots funksjonen som sjekker om url-en er i robots
