@@ -169,7 +169,7 @@ def scrape(url:str) -> None:
     print('Date Logged:', scrape_date_logged, '\n')
 
     # Kaller funksjonen som sender informasjonen til databasen
-    # send_to_database(url, site_name, site_title, site_text)
+    send_to_database(url, site_name, site_title, site_text)
 
     # Kaller funksjonen som sender linker til køen og formaterer dem
     format_links(soup)
