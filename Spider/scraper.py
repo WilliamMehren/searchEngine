@@ -70,13 +70,10 @@ def send_to_database(site_url, site_name, site_title, site_text):
 
     # Passer på at dataen som blir sendt til databasen ikke inneholder " eller ,
     disallowed = ['"', ',', "'"]
-    # for i in data:
-    #     for x in disallowed:
-    #         i = i.replace(x, '')
-
     for key, value in data.items():
-        cleaned_value = ''.join(char for char in value if char not in disallowed)
-        data[key] = cleaned_value
+        if value != None:
+            cleaned_value = ''.join(char for char in value if char not in disallowed)
+            data[key] = cleaned_value
 
     # Setter sammen url-en og sender informasjonen til api-en
     full_url = api + '?' + '&'.join([f'{key}={value}' for key, value in data.items()])
@@ -93,7 +90,6 @@ def send_to_database(site_url, site_name, site_title, site_text):
 def format_links(soup):
     # Henter alle linker på siden og lagrer dem i en kø
     links = soup.find_all('a', href=True)
-    queue_text_file = open('Spider/queue.txt', 'a')
     
     queue = []
     scraped = []
@@ -133,9 +129,54 @@ def format_links(soup):
             link = link + '/'
 
         # Sørger for at bare riktige linker blir lagt inn i køen
-        if link.startswith('https://') or link.startswith('http://') and link not in queue and link not in scraped and link != url:
-            queue_text_file.write(link + '\n')
-    queue_text_file.close()
+        if (link.startswith('https://') or link.startswith('http://')) and (link not in queue) and (link not in scraped) and (link != url):
+            # print(link)
+            with open('Spider/queue.txt', 'a') as queue_text_file:
+                queue_text_file.write(link + '\n')
+
+def send_img_to_api(parent_url, img_url, image_alt):
+    # Send info til databasen
+    api = 'http://10.1.120.50:5000/post/image'
+    data = {
+        'parent_url': parent_url,
+        'img_url': img_url,
+        'image_alt': image_alt
+    }
+
+    # Passer på at dataen som blir sendt til databasen ikke inneholder " eller ,
+    # disallowed = ['"', ',', "'"]
+    # for key, value in data.items():
+    #     if value != None:
+    #         cleaned_value = ''.join(char for char in value if char not in disallowed)
+    #         data[key] = cleaned_value
+
+    # Setter sammen url-en og sender informasjonen til api-en
+    full_url = api + '?' + '&'.join([f'{key}={value}' for key, value in data.items()])
+    response = rq.get(url=full_url)
+
+    if response.status_code == 200:
+        print('POST request successful!')
+        print('Response:', response.text, '\n')
+    else:
+        print('POST request failed with status code:', response.status_code)
+        print('Response:', response.text, '\n')
+
+def get_images(soup, parent_url):
+    # hente alle bildene fra siden
+    img_tags = soup.find_all('img')
+    
+    # henter ut bilde url-en og alt teksten
+    image_urls = [img['src'] for img in img_tags]
+    image_alts = [(img.get('alt')) for img in img_tags]
+
+    # Sender bildene til databasen
+    send_img_to_api(parent_url, image_urls, image_alts)
+    # for img in image_urls:
+    #     for alt in image_alts:
+    #         if img and alt != None or img and alt != "":
+    #             # print(img, alt)
+    #             send_img_to_api(parent_url, img, alt)
+
 
 # Funksjon som scraper siden og filtrerer ut den viktigste informasjonen
 def scrape(url:str) -> None:
@@ -180,6 +221,9 @@ def scrape(url:str) -> None:
 
     # Kaller funksjonen som sender informasjonen til databasen
     send_to_database(url, site_name, site_title, site_text)
+
+    # Kaller funksjonen som henter alle bildene og sender dem til databasen
+    get_images(soup, url)
 
     # Kaller funksjonen som sender linker til køen og formaterer dem
     format_links(soup)
