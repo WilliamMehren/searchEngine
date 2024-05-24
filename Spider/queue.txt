@@ -1,0 +1,4 @@
+<<<<<<< HEAD
+=======
+https://quotes.toscrape.com/
+>>>>>>> 924fbdad04609ee5840ab0cc37b8fcad9b81467c
