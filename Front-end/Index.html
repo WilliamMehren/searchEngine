@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/main.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
     <title>Rapier</title>
-  </head>
-  <body>
+</head>
+<body>
     <header>
-      <div class="topbar">
-        <a href="settings.html"><img src="assets/settings.svg" alt="settings" width="48" height="48" id="settIcon"></a>
-        <a href="Index.html"><h1>Rapier</h1></a>
-      </div>
+        <div class="topbar">
+            <a href="settings.html"><img src="assets/settings.svg" alt="settings" width="48" height="48" id="settIcon"></a>
+            <a href="index.html"><h1>Rapier</h1></a>
+        </div>
     </header>
     <div class="search-container">
-      <form id="searchForm">
-        <input type="text" id="search" name="search" placeholder="Søk her" />
-        <input type="submit" value="Rapier Search" class="btn" />
-        <input type="submit" value="I'm Feeling Lucky" class="btn" />
-      </form>
+        <form id="searchForm">
+            <input type="text" id="searchInput" name="search" placeholder="Søk her">
+            <input type="submit" value="Rapier Search" class="btn">
+            <input type="submit" value="I'm Feeling Lucky" class="btn">
+        </form>
     </div>
-  </body>
-  <script>
-    const searchForm = document.getElementById("searchForm");
-    searchForm.addEventListener("submit",(event) =>{
-        event.preventDefault()
-        window.location = `search.html?query=${event.target[0].value}`
-    });
-  </script>
-  <script src="scripts/customize.js"></script>
+    <script src="scripts/history.js"></script>
+    <script src="scripts/customize.js"></script>
+    <script>
+        const searchForm = document.getElementById("searchForm");
+        searchForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            let query = event.target[0].value;
+            let url = `search.html?query=${encodeURIComponent(query)}`;
+            
+            saveSearchLog(query, url);
+            
+            window.location = `search.html?query=${encodeURIComponent(query)}`;
+        });
+    </script>
+</body>
 </html>
