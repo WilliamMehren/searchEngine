@@ -70,9 +70,13 @@ def send_to_database(site_url, site_name, site_title, site_text):
 
     # Passer på at dataen som blir sendt til databasen ikke inneholder " eller ,
     disallowed = ['"', ',', "'"]
-    for i in data:
-        for x in disallowed:
-            i = i.replace(x, '')
+    # for i in data:
+    #     for x in disallowed:
+    #         i = i.replace(x, '')
+
+    for key, value in data.items():
+        cleaned_value = ''.join(char for char in value if char not in disallowed)
+        data[key] = cleaned_value
 
     # Setter sammen url-en og sender informasjonen til api-en
     full_url = api + '?' + '&'.join([f'{key}={value}' for key, value in data.items()])
