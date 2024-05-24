@@ -32,7 +32,7 @@ header{
 #themeForm{
     display: grid;
     grid-template-areas: "color picker" "color picker" "color picker" "color picker" "name picker" "add add";
-    grid-template-columns: 300px 240px;
+    grid-template-columns: 220px 300px;
     grid-template-rows: auto auto auto auto auto auto;
 }
 input[type="color"]{
@@ -48,23 +48,22 @@ border: 2px solid var(--text-color);
 }
 .preTheme{
     width: 200px;
+    height: 250px;
     padding: 0px;
     margin-bottom: 10px;
 }
-#colorshow{
-    grid-area: color;
+.add > div{
+    width: 198px;
+    height: 190px;
+    font-size: 70px;
+    margin: auto;
+    
 }
-#colorshow > div{
-    border:2px solid var(--acccent-color);
+
+button > h2{
+    font-size: 70px;
 }
-#colors{
-    grid-area: picker;
-}
-#themeNamer{
-    grid-area: name;
-    margin-top: 10px;
-    width: 85%;
-}
-#themeAdder{
-    grid-area: add;
+#themeMakerStart{
+    width: 200px;
+    height: 250px;
 }

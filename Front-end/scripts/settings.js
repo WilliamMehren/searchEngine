@@ -1,5 +1,6 @@
 var currentMenu ="themes"
 
+
 function switchMenu(menu){
     //avvelg tidligere knapp
     let preBtn = document.getElementById(currentMenu+"btn");
@@ -15,6 +16,8 @@ function switchMenu(menu){
     let newBtn = document.getElementById(currentMenu+"btn");
     newBtn.setAttribute("current","");
 }
+
+var thememaker
 
 async function buildThemes(){
     let data = await fetch("./data/themes.json")
@@ -51,6 +54,15 @@ async function buildThemes(){
         box.appendChild(name)
         themeParent.appendChild(box)
     });
+    thememaker = document.createElement("button")
+    thememaker.setAttribute("id","themeMakerStart")
+    let header  =document.createElement("h3")
+    header.innerText = "Make a theme"
+    let box = document.createElement("h2")
+    box.innerText = "+"
+    thememaker.appendChild(box)
+    thememaker.appendChild(header)
+    themeParent.appendChild(thememaker)
 }
 function SwitchTheme(themeData){
     var root = document.querySelector(":root");
@@ -62,22 +74,22 @@ function SwitchTheme(themeData){
     root.style.setProperty("--text-color",themeData["color_text"]);
     localStorage.setItem("theme",JSON.stringify(themeData))
 }
-let themeForm = document.getElementById("themeForm")
-themeForm.addEventListener("change",(event)=>{
-    let box = document.getElementById("customBox");
-    let header = document.getElementById("customHeader");
-    let text = document.getElementById("customText");
-    let btn = document.getElementById("customButton");
-    let headerColor = document.getElementById("customHeaderColor").value;
-    let headerBack = document.getElementById("customHeaderBackgroundColor").value;
-    let color = document.getElementById("customAccentColor").value;
-    let background = document.getElementById("customBackgroundColor").value;
-    let textColor = document.getElementById("CustomTextColor").value;
-
-    box.setAttribute("style",`background-color:${background};`)
-    header.setAttribute("style",`color:${headerColor};background-color:${headerBack};`)
-    text.setAttribute("style",`color:${textColor};`)
-    btn.setAttribute("style",`color:${background};background-color:${color};border-color:${background};`)
-
-});
+//let themeForm = document.getElementById("themeForm")
+//themeForm.addEventListener("change",(event)=>{
+//    let box = document.getElementById("customBox");
+//    let header = document.getElementById("customHeader");
+//    let text = document.getElementById("customText");
+//    let btn = document.getElementById("customButton");
+//    let headerColor = document.getElementById("customHeaderColor").value;
+//    let headerBack = document.getElementById("customHeaderBackgroundColor").value;
+//    let color = document.getElementById("customAccentColor").value;
+//    let background = document.getElementById("customBackgroundColor").value;
+//    let textColor = document.getElementById("CustomTextColor").value;
+//
+//    box.setAttribute("style",`background-color:${background};`)
+//    header.setAttribute("style",`color:${headerColor};background-color:${headerBack};`)
+//    text.setAttribute("style",`color:${textColor};`)
+//    btn.setAttribute("style",`color:${background};background-color:${color};border-color:${background};`)
+//
+//});
 buildThemes()

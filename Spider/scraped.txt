@@ -59,3 +59,6 @@ https://quotes.toscrape.com/tag/friends/
 https://quotes.toscrape.com/tag/truth/
 https://quotes.toscrape.com/tag/simile/
 https://www.zyte.com/
+https://onepiece.fandom.com/wiki/One_Piece_Wiki
+https://onepiece.fandom.com/f/
+https://onepiece.fandom.com/wiki/Special:AllPages/
