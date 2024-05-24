@@ -21,18 +21,25 @@
         "color_header":"#ff8aed",
         "color_text":"black"},
 
-        {"name":"Rapier Sigma",
-        "color_primary":"#000000",
-        "color_secondary":"#1c1c0e",
-        "color_accent":"#f5ef42",
-        "color_header":"#f5ef42",
-        "color_text":"white"},
-
         {"name":"Rapier Rizz",
         "color_primary":"#0c3b4d",
         "color_secondary":"#124e87",
         "color_accent":"#27c2bd",
         "color_header":"#27c2bd",
+        "color_text":"white"},
+
+        {"name":"Rapier Dark",
+        "color_primary":"black",
+        "color_secondary":"#574cd9",
+        "color_accent":"#574cd9",
+        "color_header":"black",
+        "color_text":"white"},
+
+        {"name":"Rapier Sigma",
+        "color_primary":"#000000",
+        "color_secondary":"#f5ef42",
+        "color_accent":"#f5ef42",
+        "color_header":"black",
         "color_text":"white"},
 
         {"name":"Half Rapier",
