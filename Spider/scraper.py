@@ -5,7 +5,6 @@ import time
 from urllib.parse import urlparse
 
 # TODO
-# Oppdater så den henter riktig informasjon som excerp (maybe done idk?)
 # Finn ut av hva som skjer hvis siden bruker react
 # Oppdater så den legger inn informasjonen i databasen via API-en
 # Legg inn linker i databasen
