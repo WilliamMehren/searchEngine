@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/sign.css">
+    <title>Rapier | Login</title>
+</head>
+<body>
+    <header>
+        <div class="topbar">
+            <a href="settings.html"><img src="assets/images/settings.svg" alt="settings" width="48" height="48" id="settIcon"></a>
+            <a href="index.html" class="header"><h1>Rapier</h1></a>
+        </div>
+    </header>
+    <div id="mainPage">
+        <div id="logContainer">
+            <form id="logIn">
+                <h2>Log in</h2>
+                <input type="text" name="inName" id="inUsername" placeholder="Username">
+                <input type="text" name="inPass" id="inPassword" placeholder="Password">
+                <input type="submit" value="Log in" class="btn submit">
+                <p>Don't have an account? <a href="signPage.html?mode=signup">Sign up</a></p>
+            </form>
+        </div>
+        <div id="signContainer" hidden>
+            <form id="signUp">
+                <h2>Sign up</h2>
+                <input type="text" name="upName" id="upUsername" placeholder="Username">
+                <input type="text" name="upPass" id="upPassword" placeholder="Password">
+                <input type="text" name="confirmPass" id="confirmPassword" placeholder="Confirm Password">
+                <input type="submit" value="Sign up" class="btn submit">
+            </form>
+        </div>
+    </div>
+</body>
+    <script src="scripts/customize.js"></script>
+    <script src="scripts/user.js"></script>
+</html>

@@ -5,7 +5,6 @@ import time
 from urllib.parse import urlparse
 
 # TODO
-# Oppdater så den henter riktig informasjon som excerp (maybe done idk?)
 # Finn ut av hva som skjer hvis siden bruker react
 # Oppdater så den legger inn informasjonen i databasen via API-en
 # Legg inn linker i databasen
@@ -144,11 +143,11 @@ def send_img_to_api(parent_url, img_url, image_alt):
     }
 
     # Passer på at dataen som blir sendt til databasen ikke inneholder " eller ,
-    # disallowed = ['"', ',', "'"]
-    # for key, value in data.items():
-    #     if value != None:
-    #         cleaned_value = ''.join(char for char in value if char not in disallowed)
-    #         data[key] = cleaned_value
+    disallowed = ['"', ',', "'"]
+    for key, value in data.items():
+        if value != None:
+            cleaned_value = ''.join(char for char in value if char not in disallowed)
+            data[key] = cleaned_value
 
     # Setter sammen url-en og sender informasjonen til api-en
     full_url = api + '?' + '&'.join([f'{key}={value}' for key, value in data.items()])
@@ -223,7 +222,7 @@ def scrape(url:str) -> None:
     send_to_database(url, site_name, site_title, site_text)
 
     # Kaller funksjonen som henter alle bildene og sender dem til databasen
-    get_images(soup, url)
+    # get_images(soup, url)
 
     # Kaller funksjonen som sender linker til køen og formaterer dem
     format_links(soup)

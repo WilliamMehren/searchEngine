@@ -47,15 +47,54 @@
                     <label for="header">header text color</label>
                     <input type="color" name="header" id="header">
                 </form>
+
+     <div id="themeMaker" class="popup">
+                
+        <form id="themeForm">
+            <div class="preTheme" id="colorshow">
+                <div style="background-color:#fff;" id="customBox">
+                    <h1 style="color:#1a0dab;background-color:#f2f2f2;" id="customHeader">This is a header</h1>
+                    <p style="color:black;" id="customText">This is text</p>
+                    <button style="color:#fff;background-color:#1a0dab;border-color:#fff;" id="customButton">This is a button</button>
+                </div>
             </div>
+            <div><input type="color" name="" id="customHeaderColor" value="#1a0dab">Header Color</div>
+            <div><input type="color" name="" id="customHeaderBackgroundColor" value="#f2f2f2">Header Background Color</div>
+            <div><input type="color" name="" id="customAccentColor" value="#1a0dab">Accent Color</div>
+            <div><input type="color" name="" id="customBackgroundColor" value="#ffffff">Background Color</div>
+            <div><input type="color" name="" id="CustomTextColor">Text Color</div>
+            <input type="text" name="" id="themeNamer" placeholder="Theme Name">
+            <input type="submit" value="Add Theme" id="themeAdder" class="btn">
+        </form>
         </div>
-        <div id="privacy">
+    <div id="page">
+        <header>
+            <div class="topbar" id="topbar">
+                <a href="settings.html"><img src="assets/images/settings.svg" alt="settings" width="48" height="48" id="settIcon"></a>
+                <a href="Index.html" class="header"><h1>Rapier</h1></a>
+            </div>
+        </header>
+        <div id="sidebar">
+            <button class="side" id="themesbtn" onclick="switchMenu('themes')">Themes</button>
+            <button class="side" id="privacybtn" onclick="switchMenu('privacy')">Privacy</button>
+        </div>
+        <div id="mainPage">
+            <div id="themes">
+                <h2>Themes</h2>
+                <div id="themeHolder">
+
+                </div>
+
+            </div>
+            <div id="privacy">
             <h2>Search History</h2>
             <div id="searchLogContainer"></div>
             <button onclick="clearSearchLog()" style="float: right;">Clear Search History</button>
+            </div>
+            </div>
+
         </div>
     </div>
-
     <script src="scripts/settings.js"></script>
     <script src="scripts/customize.js"></script>
     <script src="scripts/history.js"></script>

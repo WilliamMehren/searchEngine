@@ -4,22 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/index.css">
     <title>Rapier</title>
 </head>
 <body>
     <header>
-        <div class="topbar">
-            <a href="settings.html"><img src="assets/settings.svg" alt="settings" width="48" height="48" id="settIcon"></a>
-            <a href="index.html"><h1>Rapier</h1></a>
+        <div class="topbar" id="topbar">
+            <a href="settings.html"><img src="assets/images/settings.svg" alt="settings" width="48" height="48" id="settIcon"></a>
+            <a href="index.html" class="header"><h1>Rapier</h1></a>
         </div>
     </header>
-    <div class="search-container">
         <form id="searchForm">
-            <input type="text" id="searchInput" name="search" placeholder="Søk her">
-            <input type="submit" value="Rapier Search" class="btn">
-            <input type="submit" value="I'm Feeling Lucky" class="btn">
+            <div class="search-container">
+                <input type="text" id="searchInput" name="search" placeholder="Query">
+                <input type="submit" value="🔎︎" class="btn">
+            </div>
+            <div id="searchAlts">
+                <input type="submit" value="I'm Feeling Lucky" class="btn">
+            </div>
         </form>
-    </div>
     <script src="scripts/history.js"></script>
     <script src="scripts/customize.js"></script>
     <script>

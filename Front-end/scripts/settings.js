@@ -16,13 +16,31 @@ function switchMenu(menu){
     newBtn.setAttribute("current","");
 }
 
+function togglePopup(id){
+    let popup = document.getElementById(id);
+    let page = document.getElementById("page")
+    if (popup.hasAttribute("hidden")){
+        popup.removeAttribute("hidden");
+        page.setAttribute("class","blurred")
+        
+
+    } else {
+        popup.setAttribute("hidden","");
+        page.setAttribute("class","")
+    }
+}
+
+
+/* temaer */
+var themeAdder
+
 async function buildThemes(){
     let data = await fetch("./data/themes.json")
     let parsedData = await data.json()
     let themeParent = document.getElementById("themeHolder")
     //vennligst tilgi meg for denne koden
     parsedData.themes.forEach(theme => {
-        let box = document.createElement("button")
+        let box = document.createElement("button");
         box.setAttribute("class","preTheme")
         box.onclick = function() { SwitchTheme(theme) };
         //container setup
@@ -51,6 +69,16 @@ async function buildThemes(){
         box.appendChild(name)
         themeParent.appendChild(box)
     });
+    themeAdder = document.createElement("button");
+    themeAdder.setAttribute("class","preTheme add");
+    themeAdder.onclick = () => {togglePopup("themeMaker");}
+    let addcontainer = document.createElement("div");
+    addcontainer.innerText = "+";
+    let header = document.createElement("h3");
+    header.innerText = "Make A Theme";
+    themeAdder.appendChild(addcontainer);
+    themeAdder.appendChild(header);
+    themeParent.appendChild(themeAdder)
 }
 function SwitchTheme(themeData){
     var root = document.querySelector(":root");
@@ -62,6 +90,7 @@ function SwitchTheme(themeData){
     root.style.setProperty("--text-color",themeData["color_text"]);
     localStorage.setItem("theme",JSON.stringify(themeData))
 }
+
 let themeForm = document.getElementById("themeForm")
 themeForm.addEventListener("change",(event)=>{
     let box = document.getElementById("customBox");
