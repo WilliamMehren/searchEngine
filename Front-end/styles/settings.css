@@ -1,10 +1,12 @@
-body{
+
+#page{
+    
     display: grid;
     grid-template-areas: 
     "top top"
     "side main";
-    grid-template-rows: 64px auto;
-    grid-template-columns: 20% auto;
+    grid-template-rows: auto auto;
+    grid-template-columns: 300px auto;
     
 }
 header{
@@ -13,57 +15,69 @@ header{
 #sidebar{
     grid-area: side;
 }
-#mainPage{
-    grid-area: main;
-    height: 100%;
-    border-left: 2px solid var(--acccent-color);
-}
-#themes{
-    margin-left: 20px;
-}
-#themeHolder{
+#themeForm{
     display: grid;
-    grid-template-columns: repeat(6,210px);
+    grid-template-areas: 
+    "view pick"
+    "view pick"
+    "view pick"
+    "view pick"
+    "name pick"
+    "add add";
+}
+#colorshow{
+    grid-area: view;
+}
+#themeNamer{
+    grid-area: name;
+}
+#themeAdder{
+    grid-area: add;
     width: 90%;
     margin: auto;
     margin-top: 20px;
-    
 }
-#themeForm{
-    display: grid;
-    grid-template-areas: "color picker" "color picker" "color picker" "color picker" "name picker" "add add";
-    grid-template-columns: 220px 300px;
-    grid-template-rows: auto auto auto auto auto auto;
-}
-input[type="color"]{
-    border: none;
-    appearance: none;
-    background-color: transparent;
-    width: 50px;
-    height: 50px;
-}
-input[type="color"]::-webkit-color-swatch{
-border-radius: 10px;
-border: 2px solid var(--text-color);
-}
-.preTheme{
-    width: 200px;
-    height: 250px;
-    padding: 0px;
-    margin-bottom: 10px;
-}
-.add > div{
-    width: 198px;
-    height: 190px;
-    font-size: 70px;
-    margin: auto;
-    
+#mainPage{
+    grid-area: main;
+    border-left: 2px solid var(--acccent-color);
+    padding-left: 20px;
 }
 
-button > h2{
-    font-size: 70px;
+button.side{
+    width: 100%;
+    height: 70px;
+    border-radius: 0px;
+    border-width: 0px 0px 2px 0px;
 }
-#themeMakerStart{
-    width: 200px;
-    height: 250px;
+#themeHolder{
+    display: grid;
+    grid-template-columns: repeat(6, 240px);
+}
+
+.preTheme{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    height: 95%;
+    margin: auto;
+    padding: 0px;
+}
+.preTheme > div{
+    width: 100%;
+    height: 270px;
+    margin: auto;
+    border-radius: 7px 7px 0px 0px;
+    border-bottom: 2px solid var(--acccent-color);
+    
+}
+.preTheme > h3{
+    width: 100%;
+    text-align: center;
+}
+
+.add > div{
+    height: 50%;
+    margin: auto;
+    font-size: 6rem;
+    text-align: center;
 }

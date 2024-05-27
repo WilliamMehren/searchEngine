@@ -9,26 +9,29 @@
 </head>
 <body>
     <header>
-        <div class="topbar">
-            <a href="settings.html"><img src="assets/settings.svg" alt="settings" width="48" height="48" id="settIcon"></a>
-            <a href="Index.html"><h1>Rapier</h1></a>
+        <div class="topbar" id="topbar">
+            <a href="settings.html"><img src="assets/images/settings.svg" alt="settings" width="48" height="48" id="settIcon"></a>
+            <a href="Index.html" class="header"><h1>Rapier</h1></a>
         </div>
-        <div class="navbar">
-            <button class="header">Bilder</button>
-            <button class="header">Videoer</button>
-        </div>
+        
     </header>
     <div id="searchPage">
         <form id="searchBar" name="searchForm">
-            <input type="text" id="search" name="search" placeholder="query">
-            <input type="submit" value="Search" class="btn">
+            <div class="search-container">
+                <input type="text" id="search" name="search" placeholder="Query">
+                <input type="submit" value="🔎︎" class="btn">
+            </div>
           </form>
+    </div>
+    <div>
+        <button >Bilder</button>
+        <button >Videoer</button>
     </div>
     <div id="searchResults">
 
     </div>
-    <footer hidden>
-        <div id="pageSwitch">
+    <footer>
+        <div id="pageSwitch" hidden>
             <button class="pageNum"><</button>
             <button class="pageNum">1</button>
             <button class="pageNum">2</button>

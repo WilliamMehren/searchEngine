@@ -15,11 +15,6 @@ async function showSearch(form){
     let results = await search(form[0].value);
     let resultBar = document.getElementById("searchResults");
     resultBar.innerHTML ="";
-    if (results.length < 1){
-        let nores = document.createElement("h2")
-        nores.innerText ="No results"
-        resultBar.appendChild(nores)
-    }
     for (let i = 0; i < results.length; i++){
         let result = results[i]
         let container = document.createElement("div")
@@ -42,7 +37,7 @@ async function showSearch(form){
         resultBar.appendChild(container)
         if (i == 19){
             break
-        } 
+        }
     }
 }
 let query = urlParams.get("query")

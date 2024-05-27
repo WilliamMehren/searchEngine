@@ -1,0 +1,11 @@
+#searchForm{
+    display: block;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    margin-top: 22%;
+}
+#searchAlts{
+    width: fit-content;
+    margin: auto;
+}

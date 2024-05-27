@@ -1,6 +1,5 @@
 var currentMenu ="themes"
 
-
 function switchMenu(menu){
     //avvelg tidligere knapp
     let preBtn = document.getElementById(currentMenu+"btn");
@@ -17,7 +16,23 @@ function switchMenu(menu){
     newBtn.setAttribute("current","");
 }
 
-var thememaker
+function togglePopup(id){
+    let popup = document.getElementById(id);
+    let page = document.getElementById("page")
+    if (popup.hasAttribute("hidden")){
+        popup.removeAttribute("hidden");
+        page.setAttribute("class","blurred")
+        
+
+    } else {
+        popup.setAttribute("hidden","");
+        page.setAttribute("class","")
+    }
+}
+
+
+/* temaer */
+var themeAdder
 
 async function buildThemes(){
     let data = await fetch("./data/themes.json")
@@ -25,7 +40,7 @@ async function buildThemes(){
     let themeParent = document.getElementById("themeHolder")
     //vennligst tilgi meg for denne koden
     parsedData.themes.forEach(theme => {
-        let box = document.createElement("button")
+        let box = document.createElement("button");
         box.setAttribute("class","preTheme")
         box.onclick = function() { SwitchTheme(theme) };
         //container setup
@@ -54,15 +69,16 @@ async function buildThemes(){
         box.appendChild(name)
         themeParent.appendChild(box)
     });
-    thememaker = document.createElement("button")
-    thememaker.setAttribute("id","themeMakerStart")
-    let header  =document.createElement("h3")
-    header.innerText = "Make a theme"
-    let box = document.createElement("h2")
-    box.innerText = "+"
-    thememaker.appendChild(box)
-    thememaker.appendChild(header)
-    themeParent.appendChild(thememaker)
+    themeAdder = document.createElement("button");
+    themeAdder.setAttribute("class","preTheme add");
+    themeAdder.onclick = () => {togglePopup("themeMaker");}
+    let addcontainer = document.createElement("div");
+    addcontainer.innerText = "+";
+    let header = document.createElement("h3");
+    header.innerText = "Make A Theme";
+    themeAdder.appendChild(addcontainer);
+    themeAdder.appendChild(header);
+    themeParent.appendChild(themeAdder)
 }
 function SwitchTheme(themeData){
     var root = document.querySelector(":root");
@@ -74,22 +90,23 @@ function SwitchTheme(themeData){
     root.style.setProperty("--text-color",themeData["color_text"]);
     localStorage.setItem("theme",JSON.stringify(themeData))
 }
-//let themeForm = document.getElementById("themeForm")
-//themeForm.addEventListener("change",(event)=>{
-//    let box = document.getElementById("customBox");
-//    let header = document.getElementById("customHeader");
-//    let text = document.getElementById("customText");
-//    let btn = document.getElementById("customButton");
-//    let headerColor = document.getElementById("customHeaderColor").value;
-//    let headerBack = document.getElementById("customHeaderBackgroundColor").value;
-//    let color = document.getElementById("customAccentColor").value;
-//    let background = document.getElementById("customBackgroundColor").value;
-//    let textColor = document.getElementById("CustomTextColor").value;
-//
-//    box.setAttribute("style",`background-color:${background};`)
-//    header.setAttribute("style",`color:${headerColor};background-color:${headerBack};`)
-//    text.setAttribute("style",`color:${textColor};`)
-//    btn.setAttribute("style",`color:${background};background-color:${color};border-color:${background};`)
-//
-//});
+
+let themeForm = document.getElementById("themeForm")
+themeForm.addEventListener("change",(event)=>{
+    let box = document.getElementById("customBox");
+    let header = document.getElementById("customHeader");
+    let text = document.getElementById("customText");
+    let btn = document.getElementById("customButton");
+    let headerColor = document.getElementById("customHeaderColor").value;
+    let headerBack = document.getElementById("customHeaderBackgroundColor").value;
+    let color = document.getElementById("customAccentColor").value;
+    let background = document.getElementById("customBackgroundColor").value;
+    let textColor = document.getElementById("CustomTextColor").value;
+
+    box.setAttribute("style",`background-color:${background};`)
+    header.setAttribute("style",`color:${headerColor};background-color:${headerBack};`)
+    text.setAttribute("style",`color:${textColor};`)
+    btn.setAttribute("style",`color:${background};background-color:${color};border-color:${background};`)
+
+});
 buildThemes()

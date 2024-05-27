@@ -1,0 +1,18 @@
+#mainPage{
+    width: 40%;
+    margin: auto;
+}
+#signUp,#logIn{
+    display: grid;
+    grid-template-rows: auto auto auto auto auto;
+    margin-top: 80px;
+}
+#logIn > *,#signUp > * {
+    margin: auto;
+    margin-bottom: 30px;
+    
+}
+.submit{
+    width: 80%;
+    height: 60px;
+}

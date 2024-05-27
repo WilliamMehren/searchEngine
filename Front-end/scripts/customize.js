@@ -11,4 +11,16 @@ function getTheme(){
     }
     
 }
+function getUser(){
+    let user = localStorage.getItem("user");
+    if (user) {
+        user = JSON.parse(user)
+        let link = document.createElement("a")
+        link.href = `settings.html?menu=user&id=${user.userid}`
+        document.getElementById("topbar")
+    } else {
+        document.getElementById("topbar").innerHTML += `<div><button onclick="window.location = 'signPage.html'">Log in</button><button onclick="window.location = 'signPage.html?mode=signup'">Sign up</button></div>`
+    }
+}
 getTheme();
+getUser();
