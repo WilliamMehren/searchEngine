@@ -2,7 +2,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 
 async function search(query){
-    let res = await fetch(`http://10.1.120.50:5000/search/site?query=${query}&index=0&limit=20`)
+    let res = await fetch(`http://10.1.120.50:5000/search/site?query=${query}&index=20&limit=0`)
     return await res.json()
 }
 const searchBar = document.getElementById("searchBar");

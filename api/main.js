@@ -77,12 +77,15 @@ app.get("/search/:type",async (req,res)=>{
     let index = req.query.index;
     let limit = req.query.index;
     let results
+    let amount
     switch (type){
         case "site":
             if (limit && index){
                 results = await query(`SELECT * FROM sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%' LIMIT ${index},${limit}`);
+                amount = await query(`SELECT count(*) AS COUNT FROM browserdata.sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`)[0];
             } else {
                 results = await query(`SELECT * FROM sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`);
+                amount = await query(`SELECT count(*) AS COUNT FROM browserdata.sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`)[0];
             }
             
             break
@@ -92,7 +95,7 @@ app.get("/search/:type",async (req,res)=>{
         case "video":
             break
     }
-    res.send(results);
+    res.send({amount:amount,results:results});
     
 });
 app.get("/images",async ()=>{
