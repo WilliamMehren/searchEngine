@@ -8,48 +8,7 @@
     <title>Rapier | Settings</title>
 </head>
 <body>
-    <header>
-        <div class="topbar">
-            <a href="index.html"><img src="assets/home.svg" alt="home" width="48" height="48"></a>
-            <a href="index.html"><h1>Rapier</h1></a>
-        </div>
-    </header>
-    <div id="sidebar">
-        <button class="full" id="themesbtn" onclick="switchMenu('themes')">Themes</button>
-        <button class="full" id="privacybtn" onclick="switchMenu('privacy')">Privacy</button>
-    </div>
-    <div id="mainPage">
-        <div id="themes">
-            <h2>Themes</h2>
-            <div id="themeHolder"></div>
-            <h2>Make theme</h2>
-            <div id="themeMaker">
-                <div class="preTheme" id="colorshow">
-                    <div style="background-color:#fff;">
-                        <h1 style="color:#1a0dab;background-color:#f2f2f2;">This is a header</h1>
-                        <p style="color:black;">This is text</p>
-                        <button style="color:#fff;background-color:#1a0dab;border-color:#fff;">This is a button</button>
-                    </div>
-                </div>
-                <form id="themeForm">
-                    <label for="background">background color</label>
-                    <input type="color" name="background" id="background">
-                    
-                    <label for="headerbackground">header background color</label>
-                    <input type="color" name="headerbackground" id="headerbackground">
-                    
-                    <label for="accentcolor">accent color</label>
-                    <input type="color" name="accentcolor" id="accentcolor">
-                    
-                    <label for="text">text color</label>
-                    <input type="color" name="text" id="text">
-                    
-                    <label for="header">header text color</label>
-                    <input type="color" name="header" id="header">
-                </form>
-
-     <div id="themeMaker" class="popup">
-                
+    <div id="themeMaker" class="popup" hidden>
         <form id="themeForm">
             <div class="preTheme" id="colorshow">
                 <div style="background-color:#fff;" id="customBox">
@@ -66,23 +25,34 @@
             <input type="text" name="" id="themeNamer" placeholder="Theme Name">
             <input type="submit" value="Add Theme" id="themeAdder" class="btn">
         </form>
-        </div>
+    </div>
     <div id="page">
         <header>
             <div class="topbar" id="topbar">
                 <a href="settings.html"><img src="assets/images/settings.svg" alt="settings" width="48" height="48" id="settIcon"></a>
                 <a href="Index.html" class="header"><h1>Rapier</h1></a>
             </div>
+        </header>
+        <div id="sidebar">
+            <button class="side" id="themesbtn" onclick="switchMenu('themes')">Themes</button>
+            <button class="side" id="privacybtn" onclick="switchMenu('privacy')">Privacy</button>
+            <button class="side" id="bookmarksbtn" onclick="switchMenu('bookmarks')">Bookmarks</button>
         </div>
-        <div id="privacy">
-            <h2>Search History</h2>
-            <div id="searchLogContainer"></div>
-            <button onclick="clearSearchLog()" style="float: right;">Clear Search History</button>
-        </div>
-        <div id="bookmarks">
-            <h2>Bookmarks</h2>
-            <div id="bookmarkContainer"></div>
-            <button onclick="clearBookmarks()" style="float: right;">Clear Bookmarks</button>
+        <div id="mainPage">
+            <div id="themes">
+                <h2>Themes</h2>
+                <div id="themeHolder"></div>
+            </div>
+            <div id="privacy">
+                <h2>Search History</h2>
+                <div id="searchLogContainer"></div>
+                <button onclick="clearSearchLog()" style="float: right;">Clear Search History</button>
+            </div>
+            <div id="bookmarks">
+                <h2>Bookmarks</h2>
+                <div id="bookmarkContainer"></div>
+                <button onclick="clearBookmarks()" style="float: right;">Clear Bookmarks</button>
+            </div>
         </div>
     </div>
     <script src="scripts/settings.js"></script>
@@ -101,11 +71,6 @@
             }
         }
 
-        function clearSearchLog() {
-            localStorage.removeItem('searchLog');
-            displaySearchLog(); // Oppdaterer visningen slik at den reflekterer den tomme søkeloggen
-        }
-        
         function clearBookmarks() {
             localStorage.removeItem('bookmarks');
             displayBookmarks(); // Oppdaterer visningen slik at den reflekterer de tomme bokmerkene

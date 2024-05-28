@@ -426,3 +426,8 @@ https://www.geeksforgeeks.org/how-to-get-the-body-of-request-in-spring-boot/
 https://www.geeksforgeeks.org/how-to-make-put-request-in-spring-boot/
 https://www.geeksforgeeks.org/spring-boot-code-structure/
 https://www.geeksforgeeks.org/spring-boot-change-port/
+https://www.geeksforgeeks.org/spring-boot-map-entity-to-dto-using-modelmapper/
+https://www.geeksforgeeks.org/spring-boot-validation-using-hibernate-validator/
+https://www.geeksforgeeks.org/spring-boot-cache-provider/
+https://www.geeksforgeeks.org/spring-boot-logging/
+https://www.geeksforgeeks.org/spring-boot-auto-configuration/

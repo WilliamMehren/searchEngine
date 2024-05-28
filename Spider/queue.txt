@@ -1,8 +1,3 @@
-https://www.geeksforgeeks.org/spring-boot-map-entity-to-dto-using-modelmapper/
-https://www.geeksforgeeks.org/spring-boot-validation-using-hibernate-validator/
-https://www.geeksforgeeks.org/spring-boot-cache-provider/
-https://www.geeksforgeeks.org/spring-boot-logging/
-https://www.geeksforgeeks.org/spring-boot-auto-configuration/
 https://www.geeksforgeeks.org/spring-boot-ehcaching/
 https://www.geeksforgeeks.org/spring-boot-file-handling/
 https://www.geeksforgeeks.org/spring-boot-service-class-example-for-displaying-response-codes-and-custom-error-codes/
