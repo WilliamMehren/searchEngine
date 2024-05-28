@@ -94,9 +94,9 @@ def send_img_to_api(parent_url, img_url, image_alt):
     # Send info til databasen
     api = 'http://10.1.120.50:5000/post/image'
     data = {
-        'parent_url': parent_url,
-        'img_url': img_url,
-        'image_alt': image_alt
+        'parentUrl': parent_url,
+        'url': img_url,
+        'alt': image_alt
     }
 
     # Passer på at dataen som blir sendt til databasen ikke inneholder " eller ,
@@ -110,10 +110,10 @@ def send_img_to_api(parent_url, img_url, image_alt):
     response = rq.get(url=full_url)
 
     if response.status_code == 200:
-        print('POST request successful!')
+        print('Image POST request successful!')
         print('Response:', response.text, '\n')
     else:
-        print('POST request failed with status code:', response.status_code)
+        print('Image POST request failed with status code:', response.status_code)
         print('Response:', response.text, '\n')
 
 # Legger inn alle linkene i køen og formaterer dem ordentlig
@@ -225,7 +225,7 @@ def scrape(url:str) -> None:
     send_to_database(url, site_name, site_title, site_text)
 
     # Kaller funksjonen som henter alle bildene og sender dem til databasen
-    # get_images(soup, url)
+    get_images(soup, url)
 
     # Kaller funksjonen som sender linker til køen og formaterer dem
     format_links(soup)

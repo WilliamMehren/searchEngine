@@ -546,3 +546,8 @@ https://www.geeksforgeeks.org/top-50-dynamic-programming-coding-problems-for-int
 https://www.geeksforgeeks.org/top-15-websites-for-coding-challenges-and-competitions/
 https://www.geeksforgeeks.org/unified-modeling-language-uml-introduction/
 https://www.geeksforgeeks.org/system-design-interview-guide/
+https://www.dt.no
+https://www.geeksforgeeks.org/javascript-examples/
+https://www.geeksforgeeks.org/learn-reactjs/
+https://www.geeksforgeeks.org/nextjs/
+https://www.geeksforgeeks.org/angularjs/
