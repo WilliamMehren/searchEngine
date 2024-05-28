@@ -9,7 +9,7 @@ async function search(query,index,limit){
 const searchBar = document.getElementById("searchBar");
 searchBar.addEventListener("submit",async (event) =>{
     event.preventDefault();
-    showSearch(event.target)
+    showSearch(event.target[0].value)
     
 });
 async function showSearch(searchQuery){
