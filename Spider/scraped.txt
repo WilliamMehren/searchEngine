@@ -551,3 +551,6 @@ https://www.geeksforgeeks.org/javascript-examples/
 https://www.geeksforgeeks.org/learn-reactjs/
 https://www.geeksforgeeks.org/nextjs/
 https://www.geeksforgeeks.org/angularjs/
+https://www.geeksforgeeks.org/lodash/
+https://www.geeksforgeeks.org/web-browser-a-complete-overview/
+https://www.geeksforgeeks.org/technical-interview-preparation/
