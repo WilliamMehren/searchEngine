@@ -56,7 +56,7 @@ app.get("/post/:type",async (req,res)=>{
         case "video":
             //du må ta med siden bildet kommer fra
             let videoParentUrl = req.query.parentUrl
-            let videoParentSite = await query(`SELECT * FROM sites WHERE url ="${videoParentUrl}"`)
+            let videoParentSite = await query(`SELECT site_id FROM sites WHERE url ="${videoParentUrl}"`)
             if (videoParentSite < 0){
                 res.send("siden bildet tilhører kan ikke bli funnet")
             } else {
