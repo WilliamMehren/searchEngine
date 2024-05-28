@@ -9,6 +9,12 @@ from urllib.parse import urlparse
 # Oppdater så den legger inn informasjonen i databasen via API-en
 # Legg inn linker i databasen
 
+disallowed = ['"', ',', "'"]
+
+# Setter alle filepathene som blir åpnet
+queue_file_path= 'Spider/queue.txt'
+scraped_file_path = 'Spider/scraped.txt'
+
 # Funksjon som henter ut alt inneholdet i robots.txt filen
 def check_robots(url):
     robots_url = url + '/robots.txt'
@@ -68,7 +74,6 @@ def send_to_database(site_url, site_name, site_title, site_text):
     }
 
     # Passer på at dataen som blir sendt til databasen ikke inneholder " eller ,
-    disallowed = ['"', ',', "'"]
     for key, value in data.items():
         if value != None:
             cleaned_value = ''.join(char for char in value if char not in disallowed)
@@ -83,6 +88,32 @@ def send_to_database(site_url, site_name, site_title, site_text):
         print('Response:', response.text, '\n')
     else:
         print('POST request failed with status code:', response.status_code)
+        print('Response:', response.text, '\n')
+
+def send_img_to_api(parent_url, img_url, image_alt):
+    # Send info til databasen
+    api = 'http://10.1.120.50:5000/post/image'
+    data = {
+        'parentUrl': parent_url,
+        'url': img_url,
+        'alt': image_alt
+    }
+
+    # Passer på at dataen som blir sendt til databasen ikke inneholder " eller ,
+    for key, value in data.items():
+        if value != None:
+            cleaned_value = ''.join(char for char in value if char not in disallowed)
+            data[key] = cleaned_value
+
+    # Setter sammen url-en og sender informasjonen til api-en
+    full_url = api + '?' + '&'.join([f'{key}={value}' for key, value in data.items()])
+    response = rq.get(url=full_url)
+
+    if response.status_code == 200:
+        print('Image POST request successful!')
+        print('Response:', response.text, '\n')
+    else:
+        print('Image POST request failed with status code:', response.status_code)
         print('Response:', response.text, '\n')
 
 # Legger inn alle linkene i køen og formaterer dem ordentlig
@@ -109,13 +140,13 @@ def format_links(soup):
             link = base_url + link
 
         # Gjør om kø filen til en array
-        queue_file = open('Spider/queue.txt', 'r')
+        queue_file = open(queue_file_path, 'r')
         for line in queue_file.readlines():
             queue.append(line.strip())
         queue_file.close()
 
         # Gjør om scraped filen til en array
-        scraped_file = open('Spider/scraped.txt', 'r')
+        scraped_file = open(scraped_file_path, 'r')
         for line in scraped_file.readlines():
             scraped.append(line.strip())
         scraped_file.close()
@@ -130,35 +161,8 @@ def format_links(soup):
         # Sørger for at bare riktige linker blir lagt inn i køen
         if (link.startswith('https://') or link.startswith('http://')) and (link not in queue) and (link not in scraped) and (link != url):
             # print(link)
-            with open('Spider/queue.txt', 'a') as queue_text_file:
+            with open(queue_file_path, 'a') as queue_text_file:
                 queue_text_file.write(link + '\n')
-
-def send_img_to_api(parent_url, img_url, image_alt):
-    # Send info til databasen
-    api = 'http://10.1.120.50:5000/post/image'
-    data = {
-        'parent_url': parent_url,
-        'img_url': img_url,
-        'image_alt': image_alt
-    }
-
-    # Passer på at dataen som blir sendt til databasen ikke inneholder " eller ,
-    disallowed = ['"', ',', "'"]
-    for key, value in data.items():
-        if value != None:
-            cleaned_value = ''.join(char for char in value if char not in disallowed)
-            data[key] = cleaned_value
-
-    # Setter sammen url-en og sender informasjonen til api-en
-    full_url = api + '?' + '&'.join([f'{key}={value}' for key, value in data.items()])
-    response = rq.get(url=full_url)
-
-    if response.status_code == 200:
-        print('POST request successful!')
-        print('Response:', response.text, '\n')
-    else:
-        print('POST request failed with status code:', response.status_code)
-        print('Response:', response.text, '\n')
 
 def get_images(soup, parent_url):
     # hente alle bildene fra siden
@@ -169,12 +173,11 @@ def get_images(soup, parent_url):
     image_alts = [(img.get('alt')) for img in img_tags]
 
     # Sender bildene til databasen
-    send_img_to_api(parent_url, image_urls, image_alts)
-    # for img in image_urls:
-    #     for alt in image_alts:
-    #         if img and alt != None or img and alt != "":
-    #             # print(img, alt)
-    #             send_img_to_api(parent_url, img, alt)
+    for img in image_urls:
+        for alt in image_alts:
+            if img and alt != None or img and alt != "":
+                # print(img, alt)
+                send_img_to_api(parent_url, img, alt)
 
 
 # Funksjon som scraper siden og filtrerer ut den viktigste informasjonen
@@ -222,19 +225,19 @@ def scrape(url:str) -> None:
     send_to_database(url, site_name, site_title, site_text)
 
     # Kaller funksjonen som henter alle bildene og sender dem til databasen
-    # get_images(soup, url)
+    get_images(soup, url)
 
     # Kaller funksjonen som sender linker til køen og formaterer dem
     format_links(soup)
 
     # Legger linken som har blitt scrapet inn i en tekst fil over linker som har blitt scrapet
-    scraped_text_file = open('Spider/scraped.txt', 'a')
+    scraped_text_file = open(scraped_file_path, 'a')
     scraped_text_file.write(url + '\n')
     scraped_text_file.close()
 
 lines = []
 while True:
-    with open ('spider/queue.txt', 'r+') as file:
+    with open (queue_file_path, 'r+') as file:
         lines = file.readlines()
         if lines:
             # Henter første url-en i køen
