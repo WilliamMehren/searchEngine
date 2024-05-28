@@ -2,7 +2,6 @@ const express = require("express");
 const mysql = require("mysql2")
 const util = require("util")
 const cors = require("cors");
-const { type } = require("os");
 const app = express();
 
 const conn = mysql.createConnection({
@@ -72,7 +71,7 @@ app.get("/post/:type",async (req,res)=>{
     
 
 });
-app.get("/search:type",async (req,res)=>{
+app.get("/search/:type",async (req,res)=>{
     let type = req.params.type;
     let search = req.query.query;
     let index = req.query.index;
@@ -117,6 +116,7 @@ app.get("/signup", async (req,res)=>{
     let dbres = await query(`INSERT IGNORE INTO users (username,password,user_key) VALUES ('${username}','${password}','${key}')`);
     if (dbres){
         let dbres2 = await query(`SELECT * FROM users WHERE user_key = "${key}"`);
+        console.log(dbres2)
         if (dbres2){
             res.send({key:key,userid:dbres2[0].userid})
         }

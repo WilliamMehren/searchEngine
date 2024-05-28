@@ -73,26 +73,16 @@
                 <a href="settings.html"><img src="assets/images/settings.svg" alt="settings" width="48" height="48" id="settIcon"></a>
                 <a href="Index.html" class="header"><h1>Rapier</h1></a>
             </div>
-        </header>
-        <div id="sidebar">
-            <button class="side" id="themesbtn" onclick="switchMenu('themes')">Themes</button>
-            <button class="side" id="privacybtn" onclick="switchMenu('privacy')">Privacy</button>
         </div>
-        <div id="mainPage">
-            <div id="themes">
-                <h2>Themes</h2>
-                <div id="themeHolder">
-
-                </div>
-
-            </div>
-            <div id="privacy">
+        <div id="privacy">
             <h2>Search History</h2>
             <div id="searchLogContainer"></div>
             <button onclick="clearSearchLog()" style="float: right;">Clear Search History</button>
-            </div>
-            </div>
-
+        </div>
+        <div id="bookmarks">
+            <h2>Bookmarks</h2>
+            <div id="bookmarkContainer"></div>
+            <button onclick="clearBookmarks()" style="float: right;">Clear Bookmarks</button>
         </div>
     </div>
     <script src="scripts/settings.js"></script>
@@ -102,14 +92,23 @@
         function switchMenu(menu) {
             document.getElementById('themes').style.display = menu === 'themes' ? 'block' : 'none';
             document.getElementById('privacy').style.display = menu === 'privacy' ? 'block' : 'none';
+            document.getElementById('bookmarks').style.display = menu === 'bookmarks' ? 'block' : 'none';
+
             if (menu === 'privacy') {
                 displaySearchLog();
+            } else if (menu === 'bookmarks') {
+                displayBookmarks();
             }
         }
 
         function clearSearchLog() {
             localStorage.removeItem('searchLog');
             displaySearchLog(); // Oppdaterer visningen slik at den reflekterer den tomme søkeloggen
+        }
+        
+        function clearBookmarks() {
+            localStorage.removeItem('bookmarks');
+            displayBookmarks(); // Oppdaterer visningen slik at den reflekterer de tomme bokmerkene
         }
         
         // Initialize with Themes menu visible
