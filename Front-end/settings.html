@@ -70,6 +70,10 @@
                 displayBookmarks();
             }
         }
+        function clearSearchLog() {
+            localStorage.removeItem('searchLog');
+            displaySearchLog(); // Oppdaterer visningen slik at den reflekterer de tomme bokmerkene
+        }
 
         function clearBookmarks() {
             localStorage.removeItem('bookmarks');
