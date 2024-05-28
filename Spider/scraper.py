@@ -224,11 +224,11 @@ def scrape(url:str) -> None:
     # Kaller funksjonen som sender informasjonen til databasen
     send_to_database(url, site_name, site_title, site_text)
 
-    # Kaller funksjonen som henter alle bildene og sender dem til databasen
-    get_images(soup, url)
-
     # Kaller funksjonen som sender linker til køen og formaterer dem
     format_links(soup)
+
+    # Kaller funksjonen som henter alle bildene og sender dem til databasen
+    get_images(soup, url)
 
     # Legger linken som har blitt scrapet inn i en tekst fil over linker som har blitt scrapet
     scraped_text_file = open(scraped_file_path, 'a')
