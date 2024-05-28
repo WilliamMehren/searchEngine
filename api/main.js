@@ -75,17 +75,17 @@ app.get("/search/:type",async (req,res)=>{
     let type = req.params.type;
     let search = req.query.query;
     let index = req.query.index;
-    let limit = req.query.index;
+    let limit = req.query.limit;
     let results
     let amount
     switch (type){
         case "site":
             if (limit && index){
-                results = await query(`SELECT * FROM sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%' LIMIT ${index},${limit}`);
-                amount = await query(`SELECT count(*) AS COUNT FROM browserdata.sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`)[0];
+                results = await query(`SELECT * FROM sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%' LIMIT ${limit},${index}`);
+                amount = await query(`SELECT count(*) AS COUNT FROM browserdata.sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`);
             } else {
                 results = await query(`SELECT * FROM sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`);
-                amount = await query(`SELECT count(*) AS COUNT FROM browserdata.sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`)[0];
+                amount = await query(`SELECT count(*) AS COUNT FROM browserdata.sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%'`);
             }
             
             break
