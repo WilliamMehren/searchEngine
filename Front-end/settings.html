@@ -9,7 +9,6 @@
 </head>
 <body>
     <div id="themeMaker" class="popup" hidden>
-                
         <form id="themeForm">
             <div class="preTheme" id="colorshow">
                 <div style="background-color:#fff;" id="customBox">
@@ -26,7 +25,7 @@
             <input type="text" name="" id="themeNamer" placeholder="Theme Name">
             <input type="submit" value="Add Theme" id="themeAdder" class="btn">
         </form>
-        </div>
+    </div>
     <div id="page">
         <header>
             <div class="topbar" id="topbar">
@@ -37,22 +36,23 @@
         <div id="sidebar">
             <button class="side" id="themesbtn" onclick="switchMenu('themes')">Themes</button>
             <button class="side" id="privacybtn" onclick="switchMenu('privacy')">Privacy</button>
+            <button class="side" id="bookmarksbtn" onclick="switchMenu('bookmarks')">Bookmarks</button>
         </div>
         <div id="mainPage">
             <div id="themes">
                 <h2>Themes</h2>
-                <div id="themeHolder">
-
-                </div>
-
+                <div id="themeHolder"></div>
             </div>
             <div id="privacy">
-            <h2>Search History</h2>
-            <div id="searchLogContainer"></div>
-            <button onclick="clearSearchLog()" style="float: right;">Clear Search History</button>
+                <h2>Search History</h2>
+                <div id="searchLogContainer"></div>
+                <button onclick="clearSearchLog()" style="float: right;">Clear Search History</button>
             </div>
+            <div id="bookmarks">
+                <h2>Bookmarks</h2>
+                <div id="bookmarkContainer"></div>
+                <button onclick="clearBookmarks()" style="float: right;">Clear Bookmarks</button>
             </div>
-
         </div>
     </div>
     <script src="scripts/settings.js"></script>
@@ -62,17 +62,25 @@
         function switchMenu(menu) {
             document.getElementById('themes').style.display = menu === 'themes' ? 'block' : 'none';
             document.getElementById('privacy').style.display = menu === 'privacy' ? 'block' : 'none';
+            document.getElementById('bookmarks').style.display = menu === 'bookmarks' ? 'block' : 'none';
+
             if (menu === 'privacy') {
                 displaySearchLog();
+            } else if (menu === 'bookmarks') {
+                displayBookmarks();
             }
         }
-
         function clearSearchLog() {
             localStorage.removeItem('searchLog');
-            displaySearchLog(); // Oppdaterer visningen slik at den reflekterer den tomme søkeloggen
+            displaySearchLog(); // Oppdaterer visningen slik at den reflekterer de tomme bokmerkene
+        }
+
+        function clearBookmarks() {
+            localStorage.removeItem('bookmarks');
+            displayBookmarks(); 
         }
         
-        // Initialize with Themes menu visible
+        
         switchMenu('themes');
     </script>
 </body>
