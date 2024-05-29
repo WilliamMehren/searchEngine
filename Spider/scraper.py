@@ -2,7 +2,7 @@ import requests as rq
 from bs4 import BeautifulSoup as bs
 from datetime import datetime
 import time
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 # TODO
 # Finn ut av hva som skjer hvis siden bruker react
@@ -110,7 +110,7 @@ def send_img_to_api(parent_url, img_url, image_alt):
     response = rq.get(url=full_url)
 
     if response.status_code == 200:
-        print('Image POST request successful!')
+        print('Image POST request successful!', f'Parent URL: {parent_url}, IMG URL: {img_url}, IMG ALT: {image_alt}')
         print('Response:', response.text, '\n')
     else:
         print('Image POST request failed with status code:', response.status_code)
