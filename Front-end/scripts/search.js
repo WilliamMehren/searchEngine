@@ -69,21 +69,21 @@ async function showSearch(searchQuery){
             }
         }
         case "image":
-            let startUrls = ["http","www.","//ww","//r."]
-            for (let i = 0; i < results.results.length; i++){
-                let imageUrl = results.results[i].url
-                console.log(imageUrl)
-                let isFin = startUrls.find((element)=>{return element == imageUrl.slice(0,4);} )
-                console.log(isFin)
-                if (isFin != -1){
-                    imageUrl = results.results[i].site_url+results.results[i].url
+            let startUrls = ["http://", "https://", "www.", "//ww", "//r."];
+            for (let i = 0; i < results.results.length; i++) {
+                let imageUrl = results.results[i].url;
+                console.log(imageUrl);
+                let isFin = startUrls.find((element)=>{return element == imageUrl.slice(0,4);})
+                console.log(isFin);
+                if (!isFin) {
+                    let siteUrl = new URL(results.results[i].site_url);
+                    imageUrl = siteUrl.origin + results.results[i].url;
                 }
-                console.log(imageUrl)
-                let image = document.createElement("img")
-                image.setAttribute("src",imageUrl)
-                image.setAttribute("width","200")
-                resultBar.appendChild(image)
-
+                console.log(imageUrl);
+                let image = document.createElement("img");
+                image.setAttribute("src", imageUrl);
+                image.setAttribute("width", "200");
+                resultBar.appendChild(image);
             }
     }
     
