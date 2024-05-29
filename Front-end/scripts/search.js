@@ -73,7 +73,7 @@ async function showSearch(searchQuery){
             for (let i = 0; i < results.results.length; i++) {
                 let imageUrl = results.results[i].url;
                 console.log(imageUrl);
-                let isFin = startUrls.find((element)=>{return element == imageUrl.slice(0,4);})
+                let isFin = startUrls.find((element)=>{return imageUrl.startswith(element);})
                 console.log(isFin);
                 if (!isFin) {
                     let siteUrl = new URL(results.results[i].site_url);
