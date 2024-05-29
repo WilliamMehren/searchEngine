@@ -173,11 +173,14 @@ def get_images(soup, parent_url):
     image_alts = [(img.get('alt')) for img in img_tags]
 
     # Sender bildene til databasen
+    img_count = 0
     for img in image_urls:
         for alt in image_alts:
             if img and alt != None or img and alt != "":
                 # print(img, alt)
-                send_img_to_api(parent_url, img, alt)
+                img_count += 1
+                if img_count <= 50:
+                    send_img_to_api(parent_url, img, alt)
 
 
 # Funksjon som scraper siden og filtrerer ut den viktigste informasjonen
