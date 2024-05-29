@@ -72,11 +72,13 @@ async function showSearch(searchQuery){
             let startUrls = ["http","www.","//ww","//r."]
             for (let i = 0; i < results.results.length; i++){
                 let imageUrl = results.results[i].url
-                console.log(imageUrl.slice(0,4))
-                if (!startUrls.find((element)=>{element == imageUrl.slice(0,4);})){
+                console.log(imageUrl)
+                let isFin = startUrls.find((element)=>{return element == imageUrl.slice(0,4);} )
+                console.log(isFin)
+                if (isFin != -1){
                     imageUrl = results.results[i].site_url+results.results[i].url
                 }
-                console.log(results.results[i].url)
+                console.log(imageUrl)
                 let image = document.createElement("img")
                 image.setAttribute("src",imageUrl)
                 image.setAttribute("width","200")
