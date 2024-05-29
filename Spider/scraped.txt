@@ -426,7 +426,6 @@ https://www.geeksforgeeks.org/how-to-get-the-body-of-request-in-spring-boot/
 https://www.geeksforgeeks.org/how-to-make-put-request-in-spring-boot/
 https://www.geeksforgeeks.org/spring-boot-code-structure/
 https://www.geeksforgeeks.org/spring-boot-change-port/
-<<<<<<< HEAD
 https://store.steampowered.com/
 https://store.steampowered.com/login/
 https://store.steampowered.com/points/shop/
@@ -793,7 +792,6 @@ https://wiki.teamfortress.com/wiki/Main_Page_%28Classic%29/
 https://store.steampowered.com/app/20/
 https://store.steampowered.com/news/app/20/
 https://steamcommunity.com/app/20/
-=======
 https://www.geeksforgeeks.org/spring-boot-map-entity-to-dto-using-modelmapper/
 https://www.geeksforgeeks.org/spring-boot-validation-using-hibernate-validator/
 https://www.geeksforgeeks.org/spring-boot-cache-provider/
@@ -1007,7 +1005,6 @@ https://minecraft.wiki/w/File:Minecraft_shop_day_7_code.png/
 https://minecraft.wiki/w/File:Minecraft_shop_day_9_code.png/
 https://minecraft.wiki/w/File:Minecraft_shop_day_10_code.png/
 https://minecraft.wiki/w/File:Sweepstakes_$500_gift_card.jpeg/
->>>>>>> affe7402a09158b2bffc1817144b44a1c7b841c1
 https://familyguy.fandom.com/wiki/Main_Page
 https://www.youtube.com/fandomentertainment/
 https://www.instagram.com/getfandom/
@@ -1015,3 +1012,20 @@ https://www.fandom.com/digital-services-act/
 https://www.fandom.com/do-not-sell-my-info/
 https://about.fandom.com/mediakit/
 https://www.fandom.com/u/Lilsasami/
+https://minecraft.wiki/w/File:15th_Anniversary_Launcher_Sidebar.png/
+https://minecraft.wiki/w/Minecoins/
+https://minecraft.wiki/w/File:500_free_minecoins.jpeg/
+https://minecraft.wiki/w/Minecoin/
+https://minecraft.wiki/w/File:15th_Anniversary_Celebration.jpeg/
+https://minecraft.wiki/w/Java_Edition_Classic/
+https://minecraft.wiki/w/File:Cave_Game_Hoodie_Render.png/
+https://minecraft.wiki/w/File:15_Years_Day_Two.jpg/
+https://minecraft.wiki/w/File:Pringles_Minecraft_Spicy_TNT_Crisps.png/
+https://minecraft.wiki/w/File:Minecraft_players_on_the_Java_Realm_map_boat.jpeg/
+https://minecraft.wiki/w/Player/
+https://mario.fandom.com/wiki/Special:AllPages/
+https://mario.fandom.com/wiki/Special:Community/
+https://mario.fandom.com/wiki/Special:AllMaps/
+https://subnautica.fandom.com/wiki/Subnautica_Wiki
+https://subnautica.fandom.com/wiki/Special:AllPages/
+https://subnautica.fandom.com/wiki/Special:Community/
