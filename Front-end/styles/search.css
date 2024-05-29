@@ -14,3 +14,6 @@ body{
     width: max-content;
     margin: auto;
 }
+img{
+    image-rendering: pixelated;
+}

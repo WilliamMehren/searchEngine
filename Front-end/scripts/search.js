@@ -21,7 +21,7 @@ searchBar.addEventListener("submit",async (event) =>{
     
 });
 async function showSearch(searchQuery){
-    let results = await search(searchQuery,resIndex,20);
+    let results = await search(searchQuery,resIndex,60);
     let resultBar = document.getElementById("searchResults");
     resultBar.innerHTML ="";
     
@@ -31,6 +31,7 @@ async function showSearch(searchQuery){
                 let result = results.results[i]
                 let container = document.createElement("div")
                 container.setAttribute("class","searchResult")
+                
                 let link = document.createElement("a")
                 link.setAttribute("href",result.url)
                 let header = document.createElement("h2")
@@ -67,7 +68,21 @@ async function showSearch(searchQuery){
                 if (i > btnLimit){break}
             }
         }
-        case "image"
+        case "image":
+            let startUrls = ["http","www.","//ww","//r."]
+            for (let i = 0; i < results.results.length; i++){
+                let imageUrl = results.results[i].url
+                console.log(imageUrl.slice(0,4))
+                if (!startUrls.find((element)=>{element == imageUrl.slice(0,4);})){
+                    imageUrl = results.results[i].site_url+results.results[i].url
+                }
+                console.log(results.results[i].url)
+                let image = document.createElement("img")
+                image.setAttribute("src",imageUrl)
+                image.setAttribute("width","200")
+                resultBar.appendChild(image)
+
+            }
     }
     
     
