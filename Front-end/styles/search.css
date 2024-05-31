@@ -4,9 +4,16 @@ body{
     flex-direction: column;
     
 }
-
+#searchOptions{
+    border: 2px solid var(--acccent-color);
+    padding-bottom: 5px;
+    border-width: 0px 0px 2px 0px;
+}
 
 #pageSwitch{
     width: max-content;
     margin: auto;
+}
+img{
+    image-rendering: pixelated;
 }

@@ -2,7 +2,7 @@ import requests as rq
 from bs4 import BeautifulSoup as bs
 from datetime import datetime
 import time
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 # TODO
 # Finn ut av hva som skjer hvis siden bruker react
@@ -110,7 +110,7 @@ def send_img_to_api(parent_url, img_url, image_alt):
     response = rq.get(url=full_url)
 
     if response.status_code == 200:
-        print('Image POST request successful!')
+        print('Image POST request successful!', f'Parent URL: {parent_url}, IMG URL: {img_url}, IMG ALT: {image_alt}')
         print('Response:', response.text, '\n')
     else:
         print('Image POST request failed with status code:', response.status_code)
@@ -173,11 +173,14 @@ def get_images(soup, parent_url):
     image_alts = [(img.get('alt')) for img in img_tags]
 
     # Sender bildene til databasen
+    img_count = 0
     for img in image_urls:
         for alt in image_alts:
             if img and alt != None or img and alt != "":
                 # print(img, alt)
-                send_img_to_api(parent_url, img, alt)
+                img_count += 1
+                if img_count <= 50:
+                    send_img_to_api(parent_url, img, alt)
 
 
 # Funksjon som scraper siden og filtrerer ut den viktigste informasjonen
@@ -224,11 +227,11 @@ def scrape(url:str) -> None:
     # Kaller funksjonen som sender informasjonen til databasen
     send_to_database(url, site_name, site_title, site_text)
 
-    # Kaller funksjonen som henter alle bildene og sender dem til databasen
-    get_images(soup, url)
-
     # Kaller funksjonen som sender linker til køen og formaterer dem
     format_links(soup)
+
+    # Kaller funksjonen som henter alle bildene og sender dem til databasen
+    get_images(soup, url)
 
     # Legger linken som har blitt scrapet inn i en tekst fil over linker som har blitt scrapet
     scraped_text_file = open(scraped_file_path, 'a')
