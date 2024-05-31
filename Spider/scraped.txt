@@ -1033,3 +1033,4 @@ https://snl.no/ost
 https://snl.no/
 https://meny.no/varer/ost
 https://meny.no/varer/
+https://meny.no/varer/Tilbud/
