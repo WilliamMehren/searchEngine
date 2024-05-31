@@ -4,11 +4,7 @@ from datetime import datetime
 import time
 from urllib.parse import urljoin, urlparse
 
-# TODO
-# Finn ut av hva som skjer hvis siden bruker react
-# Oppdater så den legger inn informasjonen i databasen via API-en
-# Legg inn linker i databasen
-
+# Tegn som den fjerner fra informasjonen som skal sendes til databasen
 disallowed = ['"', ',', "'"]
 
 # Setter alle filepathene som blir åpnet
@@ -26,7 +22,7 @@ def check_robots(url):
             robots_url = '/'.join(parts[:3]) + '/robots.txt'
         # print(robots_url)
 
-    # Sjekker om Robots.txt exisrerer
+    # Sjekker om Robots.txt eksisterer
     response = rq.head(robots_url)
     if response.status_code == 200:
         print('Robots.txt found!')
@@ -83,6 +79,7 @@ def send_to_database(site_url, site_name, site_title, site_text):
     full_url = api + '?' + '&'.join([f'{key}={value}' for key, value in data.items()])
     response = rq.get(url=full_url)
 
+    # Tar opp resultatet fra api spørringen og printer det til konsollen
     if response.status_code == 200:
         print('POST request successful!')
         print('Response:', response.text, '\n')
@@ -90,8 +87,8 @@ def send_to_database(site_url, site_name, site_title, site_text):
         print('POST request failed with status code:', response.status_code)
         print('Response:', response.text, '\n')
 
+# Sender bilder til databasen
 def send_img_to_api(parent_url, img_url, image_alt):
-    # Send info til databasen
     api = 'http://10.1.120.50:5000/post/image'
     data = {
         'parentUrl': parent_url,
@@ -120,7 +117,6 @@ def send_img_to_api(parent_url, img_url, image_alt):
 def format_links(soup):
     # Henter alle linker på siden og lagrer dem i en kø
     links = soup.find_all('a', href=True)
-    
     queue = []
     scraped = []
     for link in links:
