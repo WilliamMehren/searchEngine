@@ -16,13 +16,15 @@ async function search(query,index,limit){
     
     return await res.json()
 }
+
 const searchBar = document.getElementById("searchBar");
-searchBar.addEventListener("submit",async (event) =>{
+searchBar.addEventListener("submit", async (event) => {
     event.preventDefault();
     await showSearch(event.target[0].value)
     
 });
 async function showSearch(searchQuery){
+    let results = await search(searchQuery,resIndex,20);
     let results = await search(searchQuery,resIndex,20);
     let resultBar = document.getElementById("searchResults");
     resultBar.innerHTML ="";
@@ -95,6 +97,18 @@ async function showSearch(searchQuery){
 let query = urlParams.get("query")
 if (query != ""){
     const searchBox = document.getElementById("search");
-    searchBox.value = query
-    showSearch(searchBar[0].value)
+    searchBox.value = query;
+    showSearch(searchBar[0].value);
+}
+
+function saveBookmark(url) {
+    let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    bookmarks.unshift({ url: url, timestamp: new Date().toLocaleString() });
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+}
+
+function saveSearchLog(url) {
+    let searchLog = JSON.parse(localStorage.getItem('searchLog')) || [];
+    searchLog.unshift({ url: url, timestamp: new Date().toLocaleString() });
+    localStorage.setItem('searchLog', JSON.stringify(searchLog));
 }
