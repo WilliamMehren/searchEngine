@@ -25,7 +25,6 @@ searchBar.addEventListener("submit", async (event) => {
 });
 async function showSearch(searchQuery){
     let results = await search(searchQuery,resIndex,20);
-    let results = await search(searchQuery,resIndex,20);
     let resultBar = document.getElementById("searchResults");
     resultBar.innerHTML ="";
     console.log(results)
