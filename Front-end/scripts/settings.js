@@ -101,12 +101,13 @@ themeForm.addEventListener("change",(event)=>{
     let color = document.getElementById("customAccentColor").value;
     let background = document.getElementById("customBackgroundColor").value;
     let textColor = document.getElementById("CustomTextColor").value;
+    let themeAddBtn = document.getElementById("themeAdder")
 
     box.setAttribute("style",`background-color:${background};`)
     header.setAttribute("style",`color:${headerColor};background-color:${headerBack};`)
     text.setAttribute("style",`color:${textColor};`)
     btn.setAttribute("style",`color:${background};background-color:${color};border-color:${background};`)
-
+    themeAddBtn.onclick = () => {togglePopup("themeMaker");}
 });
 themeForm.addEventListener("submit",(event)=>{
     event.preventDefault()

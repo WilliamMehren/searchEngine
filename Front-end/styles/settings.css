@@ -22,20 +22,40 @@ header{
     "view pick"
     "view pick"
     "view pick"
-    "name pick"
-    "add add";
+    "name name"
+    "add add"
+    "close close";
+}
+#customThemeColors{
+    grid-area: pick;
+    width: 90%;
+    margin: 70px;
+    margin-left: 150px;
+}
+#themeColorPicker{
+    padding: 15px;
 }
 #colorshow{
+    margin-left: 100px;
     grid-area: view;
 }
 #themeNamer{
     grid-area: name;
+    width: 60%;
+    margin: auto;
+    margin-top: -40px;
 }
 #themeAdder{
     grid-area: add;
-    width: 90%;
+    width: 50%;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 40px;
+}
+#themeMakerClose{
+    grid-area: close;
+    width: 50%;
+    margin: auto;
+    margin-top: 40px;
 }
 #mainPage{
     grid-area: main;

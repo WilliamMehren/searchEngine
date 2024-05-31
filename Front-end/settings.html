@@ -17,13 +17,16 @@
                     <button style="color:#fff;background-color:#1a0dab;border-color:#fff;" id="customButton">This is a button</button>
                 </div>
             </div>
-            <div><input type="color" name="" id="customHeaderColor" value="#1a0dab">Header Color</div>
-            <div><input type="color" name="" id="customHeaderBackgroundColor" value="#f2f2f2">Header Background Color</div>
-            <div><input type="color" name="" id="customAccentColor" value="#1a0dab">Accent Color</div>
-            <div><input type="color" name="" id="customBackgroundColor" value="#ffffff">Background Color</div>
-            <div><input type="color" name="" id="CustomTextColor">Text Color</div>
+            <div id="customThemeColors">
+                <div id="themeColorPicker"><input type="color" name="" id="customHeaderColor" value="#1a0dab"> Header Color</div>
+                <div id="themeColorPicker"><input type="color" name="" id="customHeaderBackgroundColor" value="#f2f2f2"> Header Background Color</div>
+                <div id="themeColorPicker"><input type="color" name="" id="customAccentColor" value="#1a0dab"> Accent Color</div>
+                <div id="themeColorPicker"><input type="color" name="" id="customBackgroundColor" value="#ffffff"> Background Color</div>
+                <div id="themeColorPicker"><input type="color" name="" id="CustomTextColor"> Text Color</div>
+            </div>
             <input type="text" name="" id="themeNamer" placeholder="Theme Name">
             <input type="submit" value="Add Theme" id="themeAdder" class="btn">
+            <button onclick="togglePopup('themeMaker')" id="themeMakerClose" class="btn">Close ThemeMaker</button>
         </form>
     </div>
     <div id="page">
