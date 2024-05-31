@@ -1043,3 +1043,9 @@ https://snl.no/
 https://meny.no/varer/ost
 https://meny.no/varer/
 https://meny.no/varer/Tilbud/
+https://snl.no
+https://snl.no/.login/
+https://snl.no/.licenses/restricted/
+https://snl.no/kvitveis/
+https://snl.no/styrtregn/
+https://snl.no/Ebrahim_Raisi/
