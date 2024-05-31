@@ -82,7 +82,6 @@ async function buildThemes(){
 }
 function SwitchTheme(themeData){
     var root = document.querySelector(":root");
-    var rs = getComputedStyle(root);
     root.style.setProperty("--primary-color",themeData["color_primary"]);
     root.style.setProperty("--secondary-color",themeData["color_secondary"]);
     root.style.setProperty("--acccent-color",themeData["color_accent"]);
@@ -108,5 +107,23 @@ themeForm.addEventListener("change",(event)=>{
     text.setAttribute("style",`color:${textColor};`)
     btn.setAttribute("style",`color:${background};background-color:${color};border-color:${background};`)
 
+});
+themeForm.addEventListener("submit",(event)=>{
+    event.preventDefault()
+    let themeName = document.getElementById("themeNamer").value;
+    let headerColor = document.getElementById("customHeaderColor").value;
+    let headerBack = document.getElementById("customHeaderBackgroundColor").value;
+    let color = document.getElementById("customAccentColor").value;
+    let background = document.getElementById("customBackgroundColor").value;
+    let textColor = document.getElementById("CustomTextColor").value;
+    let themeData = {
+        "name":themeName,
+        "color_primary":background,
+        "color_secondary":headerBack,
+        "color_accent":color,
+        "color_header":headerColor,
+        "color_text":textColor
+    }
+    SwitchTheme(themeData)
 });
 buildThemes()

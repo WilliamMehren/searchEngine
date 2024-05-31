@@ -51,7 +51,7 @@ button.side{
 }
 #themeHolder{
     display: grid;
-    grid-template-columns: repeat(6, 240px);
+    grid-template-columns: repeat(5, 240px);
 }
 
 .preTheme{

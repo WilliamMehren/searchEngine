@@ -1,15 +1,17 @@
 
 const urlParams = new URLSearchParams(window.location.search);
 let resIndex = 0
-let type = "image"
+let type = "site"
 async function search(query,index,limit){
     let res
     switch (type){
 
         case "site":
-        res = await fetch(`http://10.1.120.50:5000/search/site?query=${query}&index=${index}&limit=${limit}`)
+            res = await fetch(`http://10.1.120.50:5000/search/site?query=${query}&index=${index}&limit=${limit}`)
+            break;
         case "image":
-         res = await fetch(`http://10.1.120.50:5000/search/image?query=${query}&index=${index}&limit=${limit}`)
+            res = await fetch(`http://10.1.120.50:5000/search/image?query=${query}&index=${index}&limit=${limit}`)
+            break;
     }
     
     return await res.json()
@@ -17,14 +19,14 @@ async function search(query,index,limit){
 const searchBar = document.getElementById("searchBar");
 searchBar.addEventListener("submit",async (event) =>{
     event.preventDefault();
-    showSearch(event.target[0].value)
+    await showSearch(event.target[0].value)
     
 });
 async function showSearch(searchQuery){
-    let results = await search(searchQuery,resIndex,60);
+    let results = await search(searchQuery,resIndex,20);
     let resultBar = document.getElementById("searchResults");
     resultBar.innerHTML ="";
-    
+    console.log(results)
     switch(type){
         case "site":
         for (let i = 0; i < results.results.length; i++){
@@ -43,7 +45,6 @@ async function showSearch(searchQuery){
                 
                 let paragraph = document.createElement("p")
                 paragraph.innerText = result.text.slice(0,100)+"..."
-                console.log(result)
                 link.appendChild(header)
                 link.appendChild(paragraph)
                 container.appendChild(link)
@@ -68,6 +69,7 @@ async function showSearch(searchQuery){
                 if (i > btnLimit){break}
             }
         }
+        break;
         case "image":
             let startUrls = ["http","www.","//ww","//r."]
             for (let i = 0; i < results.results.length; i++){
@@ -85,6 +87,7 @@ async function showSearch(searchQuery){
                 resultBar.appendChild(image)
 
             }
+        break;
     }
     
     
