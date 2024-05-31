@@ -23,8 +23,9 @@ searchBar.addEventListener("submit", async (event) => {
     await showSearch(event.target[0].value)
     
 });
-async function showSearch(searchQuery){
-    let results = await search(searchQuery,resIndex,20);
+
+async function showSearch(searchQuery) {
+    let results = await search(searchQuery, resIndex, 20);
     let resultBar = document.getElementById("searchResults");
     resultBar.innerHTML ="";
     switch(type){
@@ -45,10 +46,19 @@ async function showSearch(searchQuery){
                 
                 let paragraph = document.createElement("p")
                 paragraph.innerText = result.text.slice(0,100)+"..."
-                link.appendChild(header)
-                link.appendChild(paragraph)
-                container.appendChild(link)
-                resultBar.appendChild(container)
+
+                let bookmarkBtn = document.createElement("button");
+                bookmarkBtn.innerText = "Bookmark";
+                bookmarkBtn.onclick = () => {
+                    saveBookmark(result.url);
+                    saveSearchLog(result.url); // Add this line to save the search log entry
+                };
+
+                link.appendChild(header);
+                link.appendChild(paragraph);
+                container.appendChild(link);
+                container.appendChild(bookmarkBtn);
+                resultBar.appendChild(container);
                 if (i == 19){
                     break
                 }
@@ -85,8 +95,6 @@ async function showSearch(searchQuery){
             }
         break;
     }
-    
-    
 }
 let query = urlParams.get("query")
 if (query != ""){
