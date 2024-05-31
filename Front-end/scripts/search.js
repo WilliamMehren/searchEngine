@@ -27,7 +27,6 @@ async function showSearch(searchQuery){
     let results = await search(searchQuery,resIndex,20);
     let resultBar = document.getElementById("searchResults");
     resultBar.innerHTML ="";
-    console.log(results)
     switch(type){
         case "site":
         for (let i = 0; i < results.results.length; i++){
@@ -64,7 +63,6 @@ async function showSearch(searchQuery){
                     event.preventDefault()
                     resIndex = i*20
                     await showSearch(searchQuery)
-                    console.log(resIndex)
                 }
                 document.getElementById("pageSwitch").appendChild(btn)
                 if (i > btnLimit){break}
@@ -75,13 +73,10 @@ async function showSearch(searchQuery){
             let startUrls = ["http","www.","//ww","//r."]
             for (let i = 0; i < results.results.length; i++){
                 let imageUrl = results.results[i].url
-                console.log(imageUrl)
                 let isFin = startUrls.find((element)=>{return element == imageUrl.slice(0,4);} )
-                console.log(isFin)
                 if (isFin != -1){
                     imageUrl = results.results[i].site_url+results.results[i].url
                 }
-                console.log(imageUrl)
                 let image = document.createElement("img")
                 image.setAttribute("src",imageUrl)
                 image.setAttribute("width","200")
@@ -110,4 +105,8 @@ function saveSearchLog(url) {
     let searchLog = JSON.parse(localStorage.getItem('searchLog')) || [];
     searchLog.unshift({ url: url, timestamp: new Date().toLocaleString() });
     localStorage.setItem('searchLog', JSON.stringify(searchLog));
+}
+function switchSearchType(newType){
+    type = newType
+    showSearch(searchBar[0].value);
 }
