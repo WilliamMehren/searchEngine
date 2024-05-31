@@ -1,5 +1,5 @@
 var currentMenu ="themes"
-
+//enkelt skalerbart menysystem
 function switchMenu(menu){
     //avvelg tidligere knapp
     let preBtn = document.getElementById(currentMenu+"btn");
@@ -15,7 +15,7 @@ function switchMenu(menu){
     let newBtn = document.getElementById(currentMenu+"btn");
     newBtn.setAttribute("current","");
 }
-
+//kontroller popups
 function togglePopup(id){
     let popup = document.getElementById(id);
     let page = document.getElementById("page")
@@ -31,9 +31,8 @@ function togglePopup(id){
 }
 
 
-/* temaer */
 var themeAdder
-
+//setter opp temaknappene
 async function buildThemes(){
     let data = await fetch("./data/themes.json")
     let parsedData = await data.json()
@@ -80,6 +79,7 @@ async function buildThemes(){
     themeAdder.appendChild(header);
     themeParent.appendChild(themeAdder)
 }
+//bytter tema
 function SwitchTheme(themeData){
     var root = document.querySelector(":root");
     root.style.setProperty("--primary-color",themeData["color_primary"]);

@@ -1,4 +1,5 @@
 function getTheme(){
+    //hent temainformasjon fra klocalstorage og sett css variablene riktig
     if (localStorage.getItem("theme")){
         let themeData = JSON.parse(localStorage.getItem("theme"));
         
@@ -12,6 +13,7 @@ function getTheme(){
     
 }
 function getUser(){
+    //hent bruker fra localstorage og sett opp nødvendige funksjoner
     let user = localStorage.getItem("user");
     if (user) {
         user = JSON.parse(user)

@@ -4,6 +4,7 @@ const util = require("util")
 const cors = require("cors");
 const app = express();
 
+//database kobling
 const conn = mysql.createConnection({
     host:"localhost",
     user:"root",
@@ -15,6 +16,7 @@ const query = util.promisify(conn.query).bind(conn);
 app.use(cors())
 
 function generate_key(length){
+    //lag en tilfeldig nøkkel med tilfeldige bokstaver i øsnket lengde
     let res = "";
     let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < length; i++){
@@ -23,6 +25,7 @@ function generate_key(length){
     return res
 }
 async function user_verify(userid,key){
+    //veridiser bruker med id og nøkkel
     let verified = false;
     let dbres = await query(`SELECT * FROM users WHERE user_id=${userid}`);
     if (dbres[0].user_key == key){ 
@@ -31,11 +34,14 @@ async function user_verify(userid,key){
     return verified
 }
 app.get("/post/:type",async (req,res)=>{
+    //hent request informasjon
     let type = req.params.type
     let url = req.query.url
     let dbres
     switch (type){
+        //gi nødvendig informasjon til databasen
         case "site":
+            //post informasjonen til siden
             let name = req.query.name
             let title = req.query.title
             let text = req.query.text
@@ -66,12 +72,14 @@ app.get("/post/:type",async (req,res)=>{
             break;
         case "link":
             //gidder ikke å lage denne akkurat nå 
+            break;
     }
     res.send(dbres)
     
 
 });
 app.get("/search/:type",async (req,res)=>{
+    //hent request
     let type = req.params.type;
     let search = req.query.query;
     let index = req.query.index;
@@ -79,6 +87,7 @@ app.get("/search/:type",async (req,res)=>{
     let results
     let amount
     switch (type){
+        //søk på databasen
         case "site":
             if (limit && index){
                 results = await query(`SELECT * FROM sites WHERE title LIKE '%${search}%' OR TEXT LIKE '%${search}%' LIMIT ${limit},${index}`);
@@ -98,14 +107,6 @@ app.get("/search/:type",async (req,res)=>{
     res.send({amount:amount,results:results});
     
 });
-app.get("/images",async ()=>{
-    let search = req.query.query
-    let images = await query(`SELECT * from images WHERE alt LIKE '%${search}%'`)
-    res.send(images)
-});
-app.listen(5000,()=>{
-    console.log("listening on port 5000");
-})
 app.get("/signup", async (req,res)=>{
     let username = ""
     let password = ""
@@ -161,3 +162,6 @@ app.get("/user/:id",async (req,res)=>{
         res.sendFile(`assets/users/${id}/${file}`,fileOptions);
     } 
 });
+app.listen(5000,()=>{
+    console.log("listening on port 5000");
+})

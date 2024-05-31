@@ -9,8 +9,7 @@ function setMode(){
 }
 setMode()
 
-//jeg tror ikke jeg kommer til å sove i kveld
-//jeg skylder på tommy
+//logg in med informasjonen fra siden
 document.getElementById("logIn").addEventListener("submit",async (event)=>{
     let username = event.target[0].value;
     let password = event.target[1].value;
@@ -25,6 +24,7 @@ document.getElementById("logIn").addEventListener("submit",async (event)=>{
     } else {console.log("noe gikk galt")}
     
 });
+//logg på med informasjonen fra siden
 document.getElementById("signUp").addEventListener("submit",async (event)=>{
     event.preventDefault()
     let username = event.target[0].value

@@ -4,6 +4,7 @@ let resIndex = 0
 let type = "site"
 async function search(query,index,limit){
     let res
+    //hent data fra APIen
     switch (type){
 
         case "site":
@@ -16,7 +17,7 @@ async function search(query,index,limit){
     
     return await res.json()
 }
-
+//søk når søkebaren er sendt
 const searchBar = document.getElementById("searchBar");
 searchBar.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -25,6 +26,7 @@ searchBar.addEventListener("submit", async (event) => {
 });
 
 async function showSearch(searchQuery) {
+    //søker og viser informasjonen
     let results = await search(searchQuery, resIndex, 20);
     let resultBar = document.getElementById("searchResults");
     resultBar.innerHTML ="";
@@ -96,6 +98,8 @@ async function showSearch(searchQuery) {
         break;
     }
 }
+
+//søker når du har startet søkesiden
 let query = urlParams.get("query")
 if (query != ""){
     const searchBox = document.getElementById("search");
@@ -114,6 +118,7 @@ function saveSearchLog(url) {
     searchLog.unshift({ url: url, timestamp: new Date().toLocaleString() });
     localStorage.setItem('searchLog', JSON.stringify(searchLog));
 }
+//bytt søketype
 function switchSearchType(newType){
     type = newType
     showSearch(searchBar[0].value);
